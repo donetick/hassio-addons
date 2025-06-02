@@ -8,7 +8,7 @@ export DT_DISABLE_SIGNUP=$(bashio::config 'disable_signup')
 
 
 export DT_OAUTH2_CLIENT_ID=$(bashio::config 'oauth2_client_id')
-export DT_OAUTH2_CLIENT_SECRET=$(bash::config 'oauth2_client_secret')
+export DT_OAUTH2_CLIENT_SECRET=$(bashio::config 'oauth2_client_secret')
 export DT_OAUTH2_REDIRECT_URI=$(bashio::config 'oauth2_redirect_uri')
 export DT_OAUTH2_AUTH_URL=$(bashio::config 'oauth2_auth_url')
 export DT_OAUTH2_TOKEN_URL=$(bashio::config 'oauth2_token_url')
