@@ -37,6 +37,11 @@ options:
   oauth2_user_info_url: ""
   oauth2_name: ""
   jwt_secret: ""
+  email_email: ""	
+  email_key: ""
+  email_host: ""
+  email_port:	""
+  email_appHost: ""
 
 
 schema:
@@ -52,4 +57,9 @@ schema:
   oauth2_user_info_url: "str?"
   oauth2_name: "str?"
   jwt_secret: "str?"
+  email_email: "str?"	
+  email_key: "str?"
+  email_host: "str?"
+  email_port:	"int?"
+  email_appHost: "str?"
 

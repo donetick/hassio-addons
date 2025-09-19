@@ -21,6 +21,13 @@ export DT_OAUTH2_USER_INFO_URL=$(bashio::config 'oauth2_user_info_url')
 export DT_OAUTH2_NAME=$(bashio::config 'oauth2_name')
 export DT_JWT_SECRET=$(bashio::config 'jwt_secret')
 
+
+export DT_EMAIL_HOST=$(bashio::config 'email_host')
+export DT_EMAIL_PORT=$(bashio::config 'email_port')
+export DT_EMAIL_KEY=$(bashio::config 'email_key')
+export DT_EMAIL_EMAIL=$(bashio::config 'email_email')
+export DT_EMAIL_APP_HOST=$(bashio::config 'email_appHost')
+
 cd /app
 # Start donetick backend and save PID
 ./donetick-core &
