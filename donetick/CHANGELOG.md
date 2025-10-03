@@ -1,4 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
+## 1.1.64:
+- Added support for managed sub-accounts! This has been one of the most requested features.
+- You can now create unassigned tasks that anyone in your group can pick up.
+- Add the Ability to assign an assignee in a task in a sentence by using @
+
+
 ## 1.1.60:
 Improve impersonate user functionality and fix the issue where the user is unable to start, pause, and complete tasks
 Release new version for app store and new Android APK
