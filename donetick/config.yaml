@@ -25,7 +25,7 @@ image: "ghcr.io/donetick/{arch}-hassio-addons"
 
 
 options:
-  jwt_secret: "change_this_to_a_secure_random_string_32_characters_long"
+  jwt_secret: ""
   jwt_session_time: "168h"
   jwt_max_refresh: "168h"
   telegram_token: ""
@@ -42,10 +42,10 @@ options:
   oauth2_token_url: ""
   oauth2_user_info_url: ""
   oauth2_name: ""
-  email_email: ""	
+  email_email: ""
   email_key: ""
   email_host: ""
-  email_port:	""
+  email_port:	587
   email_appHost: ""
   scheduler_jobs_due_job: "30m"
   scheduler_jobs_overdue_job: "3h"
@@ -55,7 +55,7 @@ options:
 
 schema:
   # JWT settings
-  jwt_secret: "str"
+  jwt_secret: "match(^[a-fA-F0-9]{64}$)"
   jwt_session_time: "str?"
   jwt_max_refresh: "str?"
 
@@ -78,12 +78,10 @@ schema:
   oauth2_token_url: "str?"
   oauth2_user_info_url: "str?"
   oauth2_name: "str?"
-
-  # Email settings
-  email_email: "str?"	
+  email_email: "str?"
   email_key: "str?"
   email_host: "str?"
-  email_port:	"int?"
+  email_port:	"port"
   email_appHost: "str?"
 
   # Scheduler settings
