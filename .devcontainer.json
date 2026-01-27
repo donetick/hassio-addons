@@ -1,6 +1,6 @@
 {
   "name": "Donetick Addons",
-  "image": "ghcr.io/donetick/hassio-addons:latest",
+  "image": "ghcr.io/ramiawar/hassio-addons:latest",
   "appPort": ["2021:2021", "2022:80"],
   "postStartCommand": "bash devcontainer_bootstrap",
   "runArgs": ["-e", "GIT_EDITOR=code --wait", "--privileged"],

@@ -1,10 +1,11 @@
-# Home Assistant Add-on: Example add-on
+# Home Assistant Add-on: Donetick (RamiAwar Fork)
 
 ## How to use
 
-This add-on really does nothing. It is just an example.
+This add-on runs a custom build of [Donetick](https://github.com/RamiAwar/donetick) — an open-source task and chore management app.
 
-When started it will print the configured message or "Hello world" in the log.
+The addon builds the backend and frontend from source (RamiAwar's forks) at Docker image build time.
 
-It will also print "All done!" in `/share/example_addon_output.txt` to show
-simple example of the usage of `map` in addon config.
+## Configuration
+
+See the addon configuration panel in Home Assistant for available options including Telegram/Pushover notifications, OAuth2/SSO, email settings, and more.

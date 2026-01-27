@@ -1,6 +1,6 @@
 # Donetick Add-on for Home Assistant
 
-This is the official add-on for [Donetick](https://github.com/donetick/donetick) with Home Assistant. Donetick is an open-source app for managing tasks, chores, and automations with advanced scheduling and notification features.
+This is the official add-on for [Donetick](https://github.com/RamiAwar/donetick) with Home Assistant. Donetick is an open-source app for managing tasks, chores, and automations with advanced scheduling and notification features.
 
 ![Screenshot](donetick/screenshot.png)
 ---
@@ -13,7 +13,7 @@ This is the official add-on for [Donetick](https://github.com/donetick/donetick)
 2. Go to **Settings** > **Add-ons** > **Add-on Store**.
 3. Click the three-dot menu in the top-right corner and select **Repositories**.
 4. Enter the URL of this repository:
-`https://github.com/Donetick/hassio-addons`
+`https://github.com/RamiAwar/donetick-hassio-addon`
 5. Click **Add** 
 <!--
 

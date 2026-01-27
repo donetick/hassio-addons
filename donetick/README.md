@@ -4,7 +4,7 @@
 
 Donetick is an open-source, user-friendly app designed to help you organize tasks and chores effectively.featuring customizable options to help you and others stay organized
 
-![Screenshot](https://github.com/donetick/donetick/raw/main/assets/screenshot.png)
+![Screenshot](https://github.com/RamiAwar/donetick/raw/main/assets/screenshot.png)
 
 ## Features
 🏰 Group-Based Task Management: Create and manage tasks solo or with your family or friends in shared circles.

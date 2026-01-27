@@ -3,7 +3,7 @@ name: Donetick Addon
 version: "1.1.64"
 slug: Donetick
 description: Simplify Tasks & Chores, Together.
-url: "https://github.com/Donetick/hassio-addons/tree/main/donetick"
+url: "https://github.com/RamiAwar/donetick-hassio-addon/tree/main/donetick"
 arch:
   - armv7
   - aarch64
@@ -20,7 +20,7 @@ ports:
   80/tcp: 8005
   2021/tcp: 2021
 webui: http://[HOST]:[PORT:2021]
-image: "ghcr.io/donetick/{arch}-hassio-addons"
+image: "ghcr.io/ramiawar/{arch}-hassio-addons"
 
 
 

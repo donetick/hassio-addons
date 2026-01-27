@@ -1,4 +1,4 @@
 # https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
-name: Donetick Selfhosted
-url: 'https://github.com/Donetick/hassio-addons'
-maintainer: Mo Tarbin<mhed.t91@gmail.com>
+name: Donetick Selfhosted (RamiAwar Fork)
+url: 'https://github.com/RamiAwar/donetick-hassio-addon'
+maintainer: Rami Awar
