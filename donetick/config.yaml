@@ -20,7 +20,7 @@ ports:
   80/tcp: 8005
   2021/tcp: 2021
 webui: http://[HOST]:[PORT:2021]
-image: "ghcr.io/ramiawar/{arch}-hassio-addons"
+# image: "ghcr.io/ramiawar/{arch}-hassio-addons"
 
 
 
