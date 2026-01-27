@@ -25,6 +25,9 @@ image: "ghcr.io/donetick/{arch}-hassio-addons"
 
 
 options:
+  jwt_secret: "change_this_to_a_secure_random_string_32_characters_long"
+  jwt_session_time: "168h"
+  jwt_max_refresh: "168h"
   telegram_token: ""
   pushover_token: ""
   disable_signup: false
@@ -39,9 +42,6 @@ options:
   oauth2_token_url: ""
   oauth2_user_info_url: ""
   oauth2_name: ""
-  jwt_secret: "change_this_to_a_secure_random_string_32_characters_long"
-  jwt_session_time: "168h"
-  jwt_max_refresh: "168h"
   email_email: ""	
   email_key: ""
   email_host: ""
@@ -54,6 +54,10 @@ options:
 
 
 schema:
+  # JWT settings
+  jwt_secret: "str"
+  jwt_session_time: "str?"
+  jwt_max_refresh: "str?"
 
 # General settings
   telegram_token: "str?"
@@ -74,11 +78,6 @@ schema:
   oauth2_token_url: "str?"
   oauth2_user_info_url: "str?"
   oauth2_name: "str?"
-
-  # JWT settings
-  jwt_secret: "str"
-  jwt_session_time: "str?"
-  jwt_max_refresh: "str?"
 
   # Email settings
   email_email: "str?"	
