@@ -28,7 +28,10 @@ options:
   telegram_token: ""
   pushover_token: ""
   disable_signup: false
-  auth_provider: ""
+  server_read_timeout: "10s"
+  server_write_timeout: "10s"
+  server_rate_period: "60s"
+  server_rate_limit: 300
   oauth2_client_id: ""
   oauth2_client_secret: ""
   oauth2_redirect_url: ""
@@ -36,19 +39,34 @@ options:
   oauth2_token_url: ""
   oauth2_user_info_url: ""
   oauth2_name: ""
-  jwt_secret: ""
+  jwt_secret: "change_this_to_a_secure_random_string_32_characters_long"
+  jwt_session_time: "168h"
+  jwt_max_refresh: "168h"
   email_email: ""	
   email_key: ""
   email_host: ""
   email_port:	""
   email_appHost: ""
+  scheduler_jobs_due_job: "30m"
+  scheduler_jobs_overdue_job: "3h"
+  scheduler_jobs_pre_due_job: "3h"
+
 
 
 schema:
+
+# General settings
   telegram_token: "str?"
   pushover_token: "str?"
   disable_signup: "bool?"
-  auth_provider: "str?"
+
+  # Server settings
+  server_read_timeout: "str?"
+  server_write_timeout: "str?"
+  server_rate_period: "str?"
+  server_rate_limit: "int?"
+
+  # OAuth2 settings
   oauth2_client_id: "str?"
   oauth2_client_secret: "str?"
   oauth2_redirect_url: "str?"
@@ -56,10 +74,20 @@ schema:
   oauth2_token_url: "str?"
   oauth2_user_info_url: "str?"
   oauth2_name: "str?"
-  jwt_secret: "str?"
+
+  # JWT settings
+  jwt_secret: "str"
+  jwt_session_time: "str?"
+  jwt_max_refresh: "str?"
+
+  # Email settings
   email_email: "str?"	
   email_key: "str?"
   email_host: "str?"
   email_port:	"int?"
   email_appHost: "str?"
 
+  # Scheduler settings
+  scheduler_jobs_due_job: "str?"
+  scheduler_jobs_overdue_job: "str?"
+  scheduler_jobs_pre_due_job: "str?"
