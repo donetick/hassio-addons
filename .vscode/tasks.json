@@ -18,7 +18,7 @@
     {
       "label": "Start Addon",
       "type": "shell",
-      "command": "ha addons stop \"local_${input:addonName}\"; ha addons start \"local_${input:addonName}\"; docker logs --follow \"addon_local_${input:addonName}\"",
+      "command": "ha addons stop \"local_${input:addonName}\" || true; ha --log-level info addons install \"local_${input:addonName}\"; ha addons start \"local_${input:addonName}\"; docker logs --follow \"addon_local_${input:addonName}\"",
       "group": {
         "kind": "test",
         "isDefault": false
