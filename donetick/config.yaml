@@ -25,7 +25,7 @@ image: "ghcr.io/donetick/{arch}-hassio-addons"
 
 
 options:
-  jwt_secret: ""
+  jwt_secret: "change_this_to_a_secure_random_string_32_characters_long"
   jwt_session_time: "168h"
   jwt_max_refresh: "168h"
   telegram_token: ""
@@ -55,7 +55,7 @@ options:
 
 schema:
   # JWT settings
-  jwt_secret: "match(^[a-fA-F0-9]{64}$)"
+  jwt_secret: "match(^[a-zA-Z0-9]{32}$)"
   jwt_session_time: "str?"
   jwt_max_refresh: "str?"
 
