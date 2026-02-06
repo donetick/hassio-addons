@@ -45,7 +45,7 @@ options:
   email_email: ""
   email_key: ""
   email_host: ""
-  email_port:	587
+  email_port: 587
   email_appHost: ""
   scheduler_jobs_due_job: "30m"
   scheduler_jobs_overdue_job: "3h"
@@ -81,7 +81,7 @@ schema:
   email_email: "str?"
   email_key: "str?"
   email_host: "str?"
-  email_port:	"port"
+  email_port: "port"
   email_appHost: "str?"
 
   # Scheduler settings
