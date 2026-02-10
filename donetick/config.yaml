@@ -20,6 +20,7 @@ ports:
   80/tcp: 8005
   2021/tcp: 2021
 webui: http://[HOST]:[PORT:2021]
+# Comment out the image to test locally (DO NOT COMMIT)
 image: "ghcr.io/donetick/{arch}-hassio-addons"
 
 
