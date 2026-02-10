@@ -7,26 +7,42 @@
 # export VITE_APP_API_URL=http://host.docker.internal:2021
 
 # Read configuration and export environment variables
+# Envirment variables:
 export DT_TELEGRAM_TOKEN=$(bashio::config 'telegram_token')
 export DT_PUSHOVER_TOKEN=$(bashio::config 'pushover_token')
 export DT_DISABLE_SIGNUP=$(bashio::config 'disable_signup')
 
-
+# OAuth2 settings
 export DT_OAUTH2_CLIENT_ID=$(bashio::config 'oauth2_client_id')
-export DT_OAUTH2_CLIENT_SECRET=$(bash::config 'oauth2_client_secret')
-export DT_OAUTH2_REDIRECT_URI=$(bashio::config 'oauth2_redirect_uri')
+export DT_OAUTH2_CLIENT_SECRET=$(bashio::config 'oauth2_client_secret')
+export DT_OAUTH2_REDIRECT_URL=$(bashio::config 'oauth2_redirect_url')
 export DT_OAUTH2_AUTH_URL=$(bashio::config 'oauth2_auth_url')
 export DT_OAUTH2_TOKEN_URL=$(bashio::config 'oauth2_token_url')
 export DT_OAUTH2_USER_INFO_URL=$(bashio::config 'oauth2_user_info_url')
 export DT_OAUTH2_NAME=$(bashio::config 'oauth2_name')
+
+#JWT settings
 export DT_JWT_SECRET=$(bashio::config 'jwt_secret')
+export DT_JWT_SESSION_TIME=$(bashio::config 'jwt_session_time')
+export DT_JWT_MAX_REFRESH=$(bashio::config 'jwt_max_refresh')
 
-
+# Email settings
 export DT_EMAIL_HOST=$(bashio::config 'email_host')
 export DT_EMAIL_PORT=$(bashio::config 'email_port')
 export DT_EMAIL_KEY=$(bashio::config 'email_key')
 export DT_EMAIL_EMAIL=$(bashio::config 'email_email')
 export DT_EMAIL_APP_HOST=$(bashio::config 'email_appHost')
+
+#Server settings 
+export DT_SERVER_READ_TIMEOUT=$(bashio::config 'server_read_timeout')
+export DT_SERVER_WRITE_TIMEOUT=$(bashio::config 'server_write_timeout')
+export DT_SERVER_RATE_PERIOD=$(bashio::config 'server_rate_period')
+export DT_SERVER_RATE_LIMIT=$(bashio::config 'server_rate_limit')
+
+# Scheduler settings
+export DT_SCHEDULER_JOBS_DUE_JOB=$(bashio::config 'scheduler_jobs_due_job')
+export DT_SCHEDULER_JOBS_OVERDUE_JOB=$(bashio::config 'scheduler_jobs_overdue_job')
+export DT_SCHEDULER_JOBS_PRE_DUE_JOB=$(bashio::config 'scheduler_jobs_pre_due_job')
 
 cd /app
 # Start donetick backend and save PID
