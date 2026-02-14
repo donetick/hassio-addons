@@ -1,4 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
+
+## 1.1.73:
+- Project Management: Organize your tasks into projects to better structure work.
+- Advanced Filtering System: Create custom filters with multiple conditions (status, assignees, labels, projects, points, and dates) and pin frequently used filters to the main task screen.
+- Date-only Tasks: Support for scheduling tasks on a specific date without an associated time.
+
 ## 1.1.64:
 - Added support for managed sub-accounts! This has been one of the most requested features.
 - You can now create unassigned tasks that anyone in your group can pick up.
