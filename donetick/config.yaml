@@ -55,7 +55,7 @@ options:
 
 schema:
   # JWT settings
-  jwt_secret: "match(^[a-zA-Z0-9]{32}$)"
+  jwt_secret: "str?"
   jwt_session_time: "str?"
   jwt_max_refresh: "str?"
 
