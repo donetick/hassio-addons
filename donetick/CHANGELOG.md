@@ -1,5 +1,9 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 1.1.74:
+- Standardize time handling to UTC across the app (fixes #520).
+- Force process timezone to UTC and ensure all stored/used times are normalized to UTC.
+- Fix SQL Scanner not handling string values coming from SQLite (fixes #518).
 ## 1.1.73:
 - Project Management: Organize your tasks into projects to better structure work.
 - Advanced Filtering System: Create custom filters with multiple conditions (status, assignees, labels, projects, points, and dates) and pin frequently used filters to the main task screen.
