@@ -233,9 +233,9 @@ jobs:
       - name: Commit and push
         if: steps.check.outputs.needs_update == 'true'
         run: |
-          git pull --rebase
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add donetick-beta/config.yaml donetick-beta/CHANGELOG.md
           git commit -m "Update beta to ${{ steps.upstream.outputs.version }}"
+          git pull --rebase
           git push
