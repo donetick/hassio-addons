@@ -5,6 +5,15 @@ on:
     - cron: '0 0 * * *'  # daily at midnight UTC
   workflow_dispatch:
     inputs:
+      target:
+        description: 'Which addon to sync'
+        required: true
+        default: 'both'
+        type: choice
+        options:
+          - both
+          - stable
+          - beta
       version:
         description: 'Stable version tag to sync (e.g. v1.1.75). Leave empty to use latest.'
         required: false
@@ -28,6 +37,8 @@ jobs:
         id: guard
         run: |
           if [[ "${{ github.event_name }}" == "repository_dispatch" && "${{ github.event.action }}" == "donetick_prerelease" ]]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.target }}" == "beta" ]]; then
             echo "skip=true" >> $GITHUB_OUTPUT
           else
             echo "skip=false" >> $GITHUB_OUTPUT
@@ -130,6 +141,8 @@ jobs:
         id: guard
         run: |
           if [[ "${{ github.event_name }}" == "repository_dispatch" && "${{ github.event.action }}" == "donetick_release" ]]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.target }}" == "stable" ]]; then
             echo "skip=true" >> $GITHUB_OUTPUT
           else
             echo "skip=false" >> $GITHUB_OUTPUT
