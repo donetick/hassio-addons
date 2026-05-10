@@ -1,0 +1,90 @@
+# https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
+name: Donetick Beta Addon
+version: "0.0.0"
+slug: DonetickBeta
+description: Simplify Tasks & Chores, Together. (Beta / Pre-release)
+url: "https://github.com/Donetick/hassio-addons/tree/main/donetick-beta"
+arch:
+  - armv7
+  - aarch64
+  - amd64
+init: false
+map:
+  - type: data
+    read_only: False
+    path: /data
+environment:
+  DT_SQLITE_PATH: /data/donetick.db
+  DT_ENV: selfhosted
+ports:
+  80/tcp: 8006
+  2021/tcp: 2022
+webui: http://[HOST]:[PORT:2022]
+image: "ghcr.io/donetick/{arch}-hassio-addons-beta"
+
+
+
+options:
+  jwt_secret: "change_this_to_a_secure_random_string_32_characters_long"
+  jwt_session_time: "168h"
+  jwt_max_refresh: "168h"
+  telegram_token: ""
+  pushover_token: ""
+  disable_signup: false
+  server_read_timeout: "10s"
+  server_write_timeout: "10s"
+  server_rate_period: "60s"
+  server_rate_limit: 300
+  oauth2_client_id: ""
+  oauth2_client_secret: ""
+  oauth2_redirect_url: ""
+  oauth2_auth_url: ""
+  oauth2_token_url: ""
+  oauth2_user_info_url: ""
+  oauth2_name: ""
+  email_email: ""
+  email_key: ""
+  email_host: ""
+  email_port: 587
+  email_appHost: ""
+  scheduler_jobs_due_job: "30m"
+  scheduler_jobs_overdue_job: "3h"
+  scheduler_jobs_pre_due_job: "3h"
+
+
+
+schema:
+  # JWT settings
+  jwt_secret: "str?"
+  jwt_session_time: "str?"
+  jwt_max_refresh: "str?"
+
+# General settings
+  telegram_token: "str?"
+  pushover_token: "str?"
+  disable_signup: "bool?"
+
+  # Server settings
+  server_read_timeout: "str?"
+  server_write_timeout: "str?"
+  server_rate_period: "str?"
+  server_rate_limit: "int?"
+
+  # OAuth2 settings
+  oauth2_client_id: "str?"
+  oauth2_client_secret: "str?"
+  oauth2_redirect_url: "str?"
+  oauth2_auth_url: "str?"
+  oauth2_token_url: "str?"
+  oauth2_user_info_url: "str?"
+  oauth2_name: "str?"
+  email_email: "str?"
+  email_key: "str?"
+  email_host: "str?"
+  email_port: "port"
+  email_appHost: "str?"
+
+  # Scheduler settings
+  scheduler_jobs_due_job: "str?"
+  scheduler_jobs_overdue_job: "str?"
+  scheduler_jobs_pre_due_job: "str?"

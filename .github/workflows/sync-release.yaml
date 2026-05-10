@@ -1,0 +1,228 @@
+name: Sync Donetick Release
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # daily at midnight UTC
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Stable version tag to sync (e.g. v1.1.75). Leave empty to use latest.'
+        required: false
+      beta_version:
+        description: 'Beta version tag to sync (e.g. v1.2.0-beta.1). Leave empty to use latest pre-release.'
+        required: false
+  repository_dispatch:
+    types: [donetick_release, donetick_prerelease]
+
+jobs:
+  sync-stable:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4.2.0
+
+      - name: Skip if triggered as beta-only dispatch
+        id: guard
+        run: |
+          if [[ "${{ github.event_name }}" == "repository_dispatch" && "${{ github.event.action }}" == "donetick_prerelease" ]]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Fetch upstream stable release info
+        id: upstream
+        if: steps.guard.outputs.skip == 'false'
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && -n "${{ github.event.inputs.version }}" ]]; then
+            TAG="${{ github.event.inputs.version }}"
+          elif [[ "${{ github.event_name }}" == "repository_dispatch" ]]; then
+            TAG="${{ github.event.client_payload.version }}"
+          else
+            TAG=$(curl -s "https://api.github.com/repos/donetick/donetick/releases/latest" \
+              | jq -r '.tag_name')
+          fi
+
+          curl -s "https://api.github.com/repos/donetick/donetick/releases/tags/${TAG}" \
+            > /tmp/release_info.json
+
+          VERSION="${TAG#v}"
+          jq -r '.body' /tmp/release_info.json > /tmp/release_notes.md
+
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Get current addon version
+        id: current
+        if: steps.guard.outputs.skip == 'false'
+        run: |
+          VERSION=$(grep '^version:' donetick/config.yaml | sed 's/version:[[:space:]]*//;s/"//g')
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Check if update needed
+        id: check
+        if: steps.guard.outputs.skip == 'false'
+        run: |
+          if [[ "${{ steps.upstream.outputs.version }}" == "${{ steps.current.outputs.version }}" ]]; then
+            echo "Already at version ${{ steps.current.outputs.version }}, nothing to do."
+            echo "needs_update=false" >> $GITHUB_OUTPUT
+          else
+            echo "Update needed: ${{ steps.current.outputs.version }} -> ${{ steps.upstream.outputs.version }}"
+            echo "needs_update=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update config.yaml version
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          sed -i 's/^version: .*/version: "${{ steps.upstream.outputs.version }}"/' donetick/config.yaml
+
+      - name: Prepend to CHANGELOG.md
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          python3 - <<'EOF'
+          import os
+
+          version = os.environ["VERSION"]
+          with open('/tmp/release_notes.md', 'r') as f:
+              notes = f.read().strip()
+
+          new_entry = f"## {version}:\n{notes}\n\n"
+
+          with open('donetick/CHANGELOG.md', 'r') as f:
+              content = f.read()
+
+          idx = content.find('\n\n')
+          if idx != -1:
+              updated = content[:idx + 2] + new_entry + content[idx + 2:]
+          else:
+              updated = new_entry + content
+
+          with open('donetick/CHANGELOG.md', 'w') as f:
+              f.write(updated)
+          EOF
+        env:
+          VERSION: ${{ steps.upstream.outputs.version }}
+
+      - name: Commit and push
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add donetick/config.yaml donetick/CHANGELOG.md
+          git commit -m "Update to ${{ steps.upstream.outputs.version }}"
+          git push
+
+  sync-beta:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    # Run after stable to avoid git push conflicts on the same branch
+    needs: sync-stable
+    if: always()
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4.2.0
+
+      - name: Skip if triggered as stable-only dispatch
+        id: guard
+        run: |
+          if [[ "${{ github.event_name }}" == "repository_dispatch" && "${{ github.event.action }}" == "donetick_release" ]]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Fetch upstream pre-release info
+        id: upstream
+        if: steps.guard.outputs.skip == 'false'
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && -n "${{ github.event.inputs.beta_version }}" ]]; then
+            TAG="${{ github.event.inputs.beta_version }}"
+            curl -s "https://api.github.com/repos/donetick/donetick/releases/tags/${TAG}" \
+              > /tmp/beta_release_info.json
+          elif [[ "${{ github.event_name }}" == "repository_dispatch" ]]; then
+            TAG="${{ github.event.client_payload.version }}"
+            curl -s "https://api.github.com/repos/donetick/donetick/releases/tags/${TAG}" \
+              > /tmp/beta_release_info.json
+          else
+            # Get latest pre-release; fall back to latest stable if none exists
+            curl -s "https://api.github.com/repos/donetick/donetick/releases" \
+              > /tmp/all_releases.json
+            TAG=$(jq -r '[.[] | select(.prerelease == true)] | first | .tag_name' /tmp/all_releases.json)
+            if [[ "${TAG}" == "null" || -z "${TAG}" ]]; then
+              echo "No pre-release found, skipping beta sync."
+              echo "skip=true" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+            jq '[.[] | select(.prerelease == true)] | first' /tmp/all_releases.json \
+              > /tmp/beta_release_info.json
+          fi
+
+          VERSION="${TAG#v}"
+          jq -r '.body' /tmp/beta_release_info.json > /tmp/beta_release_notes.md
+
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Get current beta addon version
+        id: current
+        if: steps.guard.outputs.skip == 'false' && steps.upstream.outputs.skip != 'true'
+        run: |
+          VERSION=$(grep '^version:' donetick-beta/config.yaml | sed 's/version:[[:space:]]*//;s/"//g')
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Check if update needed
+        id: check
+        if: steps.guard.outputs.skip == 'false' && steps.upstream.outputs.skip != 'true'
+        run: |
+          if [[ "${{ steps.upstream.outputs.version }}" == "${{ steps.current.outputs.version }}" ]]; then
+            echo "Beta already at version ${{ steps.current.outputs.version }}, nothing to do."
+            echo "needs_update=false" >> $GITHUB_OUTPUT
+          else
+            echo "Beta update needed: ${{ steps.current.outputs.version }} -> ${{ steps.upstream.outputs.version }}"
+            echo "needs_update=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update beta config.yaml version
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          sed -i 's/^version: .*/version: "${{ steps.upstream.outputs.version }}"/' donetick-beta/config.yaml
+
+      - name: Prepend to beta CHANGELOG.md
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          python3 - <<'EOF'
+          import os
+
+          version = os.environ["VERSION"]
+          with open('/tmp/beta_release_notes.md', 'r') as f:
+              notes = f.read().strip()
+
+          new_entry = f"## {version}:\n{notes}\n\n"
+
+          with open('donetick-beta/CHANGELOG.md', 'r') as f:
+              content = f.read()
+
+          idx = content.find('\n\n')
+          if idx != -1:
+              updated = content[:idx + 2] + new_entry + content[idx + 2:]
+          else:
+              updated = new_entry + content
+
+          with open('donetick-beta/CHANGELOG.md', 'w') as f:
+              f.write(updated)
+          EOF
+        env:
+          VERSION: ${{ steps.upstream.outputs.version }}
+
+      - name: Commit and push
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          git pull --rebase
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add donetick-beta/config.yaml donetick-beta/CHANGELOG.md
+          git commit -m "Update beta to ${{ steps.upstream.outputs.version }}"
+          git push
