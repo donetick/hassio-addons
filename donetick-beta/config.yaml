@@ -4,6 +4,7 @@ version: "0.0.0"
 slug: DonetickBeta
 description: Simplify Tasks & Chores, Together. (Beta / Pre-release)
 url: "https://github.com/Donetick/hassio-addons/tree/main/donetick-beta"
+stage: experimental
 arch:
   - armv7
   - aarch64
