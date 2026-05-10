@@ -28,6 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: write
 
     steps:
       - name: Check out repository
@@ -125,10 +126,20 @@ jobs:
           git commit -m "Update to ${{ steps.upstream.outputs.version }}"
           git push
 
+      - name: Trigger builder for stable addon
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/builder.yaml/dispatches" \
+            -d '{"ref":"main","inputs":{"addon":"donetick"}}'
+
   sync-beta:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: write
     # Run after stable to avoid git push conflicts on the same branch
     needs: sync-stable
     if: always()
@@ -239,3 +250,12 @@ jobs:
           git commit -m "Update beta to ${{ steps.upstream.outputs.version }}"
           git pull --rebase
           git push
+
+      - name: Trigger builder for beta addon
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/builder.yaml/dispatches" \
+            -d '{"ref":"main","inputs":{"addon":"donetick-beta"}}'
