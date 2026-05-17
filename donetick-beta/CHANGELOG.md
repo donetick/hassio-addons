@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.76-beta.6:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* cfc9e4c5687e48ab22d42f59f6b392847af8323e: Bugfix/rework api input validation (#607) (Mihaly Hobor <hoborm@users.noreply.github.com>)
+
 ## 0.1.76-beta.5:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
