@@ -1,5 +1,74 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.75:
+## Release Notes:
+We have big release and will be updating the note in the next couple days! Because am sure I miss few things!
+
+ 
+- Internationalization: one of the most requested feature many been waiting for, we start the process and did early release for it! Hopefully with more contributions you will see your language support! 
+- Rescheduling History: Chores now track rescheduling events in their history, giving users better visibility into how tasks have been moved over time.
+- Extended Swagger / API Auth Support: Swagger and MultiAuthMiddleware now cover additional handlers, broadening API documentation and authentication coverage. 
+- Label Filtering in Advanced Filters: Labels can now be used within the advanced filter system for more precise task queries.
+- Smart Insights Panel: A new Smart Insights card has been added to the side panel, providing nice analysis and suggestions.(This is  a preview, might get improvement or removed :) )   
+- Available for Me Quick Filter: Renamed and refined the quick filter to show chores assigned to the current user or unassigned.
+- as side note: we have great improvement happen on homeassistant integration! We have calendar integration and recurrent task represent as sensor as well now! Make sure you update you integration!
+
+
+
+
+Special thanks :
+- to @hoborm for the dedication he put into this! Release from swagger to testing to managing issues and discord. THANK YOU !
+-  @peppone18 for reporting a vulnerability and fixing it! More details in CVE when published 
+- @Vi-Ku for making first contribution and jumping into open issues ! Welcome aboard!
+- @scottanderson for making always cicd improvement 
+- @curreta for giving homeassistant integration the love it need! And for  @torbenvanassche for helping in making that happen! 
+- everyone contribute to this release and help making Donetick better!
+
+
+## What's Changed
+* Add 30 second grace period for CanEdit time check. by @hoborm in https://github.com/donetick/donetick/pull/480
+* Fix Time.Now().UTC lint error in payment webhook by @hoborm in https://github.com/donetick/donetick/pull/528
+* Add golangci-lint checks to PR workflow by @scottanderson in https://github.com/donetick/donetick/pull/414
+* bugfix: Install tzdata package in runtime env. by @hoborm in https://github.com/donetick/donetick/pull/530
+* Add `Code Formatting and Linting` to README.md by @scottanderson in https://github.com/donetick/donetick/pull/531
+* Enforce JSON binding in chores and circles' handler by @hoborm in https://github.com/donetick/donetick/pull/511
+* Fix LICENSE.MD url by @hoborm in https://github.com/donetick/donetick/pull/540
+* Add various CI checks by @scottanderson in https://github.com/donetick/donetick/pull/534
+* Aligned password requirements and increased max-length to 64 by @wjzijderveld in https://github.com/donetick/donetick/pull/525
+* feat: allow configuring custom fromEmail and separate users for SMTP by @njoerd114 in https://github.com/donetick/donetick/pull/325
+* Enabled the TaskCreated event by @wjzijderveld in https://github.com/donetick/donetick/pull/562
+* Fix a bug where a non-assignee can be assigned a chore based on prior completions of the chore by @robertpyke in https://github.com/donetick/donetick/pull/565
+* Fix not respected "next assigned" rules for trigger chores by @hoborm in https://github.com/donetick/donetick/pull/556
+* README: Add a build step about JWT secret by @feedingaliencat in https://github.com/donetick/donetick/pull/543
+* config: default RateLimit/RatePeriod to match selfhosted.yaml values by @BP602 in https://github.com/donetick/donetick/pull/559
+* Feature/simple health check api by @hoborm in https://github.com/donetick/donetick/pull/527
+* Fix lint errors introduced in #527 by @hoborm in https://github.com/donetick/donetick/pull/591
+* docs: include config volume in 'docker run' by @omarkohl in https://github.com/donetick/donetick/pull/584
+* Extend swagger+MultiAuthMiddleware for multiple handlers by @hoborm in https://github.com/donetick/donetick/pull/514
+* wrap Swagger initialization command in shell execution by @meauxt in https://github.com/donetick/donetick/pull/600
+* Change to serve_frontend:true by @hoborm in https://github.com/donetick/donetick/pull/603
+* fix: expose is_user_creation_disabled in /resource endpoint by @Vi-Ku in https://github.com/donetick/donetick/pull/616
+* fix: add cache headers for static assets with cache busting by @Vi-Ku in https://github.com/donetick/donetick/pull/618
+* fix: HTML-escape display name in UpdateUserDetails by @Vi-Ku in https://github.com/donetick/donetick/pull/617
+* Bump google.golang.org/grpc from 1.75.0 to 1.79.3 by @dependabot[bot] in https://github.com/donetick/donetick/pull/626
+
+
+Big thanks to all the contributions in this release! Thank you for making Donetick better! 
+
+
+## New Contributors
+* @wjzijderveld made their first contribution in https://github.com/donetick/donetick/pull/525
+* @njoerd114 made their first contribution in https://github.com/donetick/donetick/pull/325
+* @robertpyke made their first contribution in https://github.com/donetick/donetick/pull/565
+* @feedingaliencat made their first contribution in https://github.com/donetick/donetick/pull/543
+* @BP602 made their first contribution in https://github.com/donetick/donetick/pull/559
+* @omarkohl made their first contribution in https://github.com/donetick/donetick/pull/584
+* @meauxt made their first contribution in https://github.com/donetick/donetick/pull/600
+* @Vi-Ku made their first contribution in https://github.com/donetick/donetick/pull/616
+* @dependabot[bot] made their first contribution in https://github.com/donetick/donetick/pull/626
+
+**Full Changelog**: https://github.com/donetick/donetick/compare/v0.1.74...v0.1.75
+
 ## null:
 null
 
