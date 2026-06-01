@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.76-beta.9:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 0ca432c1f7731ef9c4c2f00aad7f2f845ef9c2b3: Merge branch 'develop' of https://github.com/donetick/donetick into develop (Mo Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.76-beta.8:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
