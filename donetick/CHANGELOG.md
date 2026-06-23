@@ -1,8 +1,5 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
-## null:
-null
-
 ## 0.1.75:
 ## Release Notes:
 We have big release and will be updating the note in the next couple days! Because am sure I miss few things!
