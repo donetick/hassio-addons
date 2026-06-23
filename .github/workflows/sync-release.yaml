@@ -64,6 +64,11 @@ jobs:
           VERSION="${TAG#v}"
           jq -r '.body' /tmp/release_info.json > /tmp/release_notes.md
 
+          if [[ -z "${VERSION}" || "${VERSION}" == "null" ]]; then
+            echo "Invalid version: ${VERSION}"
+            exit 1
+          fi
+
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
 
       - name: Get current addon version
@@ -187,6 +192,11 @@ jobs:
 
           VERSION="${TAG#v}"
           jq -r '.body' /tmp/beta_release_info.json > /tmp/beta_release_notes.md
+
+          if [[ -z "${VERSION}" || "${VERSION}" == "null" ]]; then
+            echo "Invalid version: ${VERSION}"
+            exit 1
+          fi
 
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
 
