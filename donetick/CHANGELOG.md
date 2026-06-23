@@ -69,9 +69,6 @@ Big thanks to all the contributions in this release! Thank you for making Doneti
 
 **Full Changelog**: https://github.com/donetick/donetick/compare/v0.1.74...v0.1.75
 
-## null:
-null
-
 ## 0.1.75:
 ## Release Notes:
 We have big release and will be updating the note in the next couple days! Because am sure I miss few things!
