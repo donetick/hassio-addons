@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.76-beta.14:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 88f6ebc80683ea55f4cf0ec36e4a038fc4d14191: feat(auth): add disable_password_auth option for SSO-only instances (#438) (#699) (Louis-Michel Couture <louim_1@hotmail.com>)
+
 ## 0.1.76-beta.13:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
