@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.76-beta.15:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 12afbdcc1d3f7811de26d1e76ee11bf92f7f728f: Bug fixes 06 27 2026 (#712) (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.76-beta.14:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
