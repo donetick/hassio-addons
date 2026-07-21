@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.76-beta.20:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 8737077cf2cc470eaafc7450ef4a6f53f30fd86d: Run migration script agains sqlite always (#731) (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.76-beta.19:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
