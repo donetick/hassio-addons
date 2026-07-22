@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.76-beta.21:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* fbd5b15f2ec3a3a4858c8e04b85a4501c494ebe8: Merge remote-tracking branch 'origin/main' into develop-m (Mo Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.76-beta.20:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
