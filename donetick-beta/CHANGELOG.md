@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.76-beta.23:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 59e89003a7ececead5da402fda22a3eeeb3f54ab: Send reminders to all circle members for chores assigned to "Anyone" (#746) (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.76-beta.22:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
