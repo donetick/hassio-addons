@@ -1,5 +1,90 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.76:
+## Release Notes:
+
+Another big one! Between the backend and the app, there's a lot in here so bare with me if I miss something, will keep updating this over the next few days.
+
+- **Offline Mode keeps getting better**: sync + versioning support landed on the backend (new `syncVersion` field so the app can reconcile changes made while offline), and on the app side offline support now covers labels, projects, and chore archiving/unarchiving too. Also fixed stuck commands blocking the sync pipeline, spurious "you're offline" flips, and ghost chores showing up when switching accounts. Offline data now properly clears on logout/session expiry/server change.
+
+- **NFC**: cleaned up NFC permissions on Android (removed NDEF/PACE to keep Play Store happy) and fixed NFC URL generation on iOS.
+
+- **OCR -> Task**: you can now snap/upload a photo and have it turned into a task automatically. Still early, expect it to get smarter over the next few releases.
+- **Advanced Filtering improvement** : custom filters can now group results, and filter/chip navigation no longer kicks you to a new page when running as a PWA. History and activity views also got a unified toolbar with filtering built in.
+
+- **SSO-only self-hosting**: new `disable_password_auth` config option so you can fully disable local/password login and run SSO-only through your OIDC provider. If you're locking things down for a single-household deployment this one's for you.
+
+- **Attachments**: new attachment browser/viewer, plus draft support so uploads don't get lost mid-edit.
+
+- **Task creation got a refresh**: reworked Add Task modal with a smarter title input and a quicker due-date/time picker.
+
+- **Activity & History**: new detail modal so you can drill into (and edit from) any activity entry, plus proper "Missed" / "Rescheduled" status handling and a fix for points history not counting all circle members.
+
+- **Localization**: German, Brazilian Portuguese, Japanese, and Simplified Chinese translations added — thank you to everyone contributing!
+
+- **Login/Auth fixes**: fixed a Google Sign-In crash on iOS, OAuth2 refresh token bug, MFA handling improvements, and clearer error messages when login fails.
+
+- **API validation is more graceful now**: instead of just failing, invalid requests come back with useful details on what went wrong.
+
+- as a side note: for self-hosters without email configured, there's now a `log_raw_url` option to log password-reset links straight to the console.
+
+## Special thanks:
+
+- everyone who contributed translations (German, pt-BR, Japanese, zh-CN)  you're making Donetick usable for a lot more people!
+- everyone who filed issues, tested betas, and helped shape this release. Thank you!
+
+## What's Changed
+
+- Make sure Origin same for SSE and server in [#659](https://github.com/donetick/donetick/pull/659)
+- Update README.md in [#661](https://github.com/donetick/donetick/pull/661)
+- fix: include validation details in API error responses by [@mvanhorn](https://github.com/mvanhorn) in [#606](https://github.com/donetick/donetick/pull/606)
+- fix(oidc): honor preferred_username claim on OAuth2 signup by [@MaikuMori](https://github.com/MaikuMori) in [#634](https://github.com/donetick/donetick/pull/634)
+- Offline Support: Add Synchronization and Versioning by [@meauxt](https://github.com/meauxt) in [#665](https://github.com/donetick/donetick/pull/665)
+- Graceful Validation with Warnings, to make sure we have a non-breaking rollout by [@meauxt](https://github.com/meauxt) in [#674](https://github.com/donetick/donetick/pull/674)
+- add log_raw_url option to log password reset URL in console by [@meauxt](https://github.com/meauxt) in [#675](https://github.com/donetick/donetick/pull/675)
+- Bugfix/rework api input validation frontend error by [@hoborm](https://github.com/hoborm) in [#681](https://github.com/donetick/donetick/pull/681)
+- feat(auth): add disable_password_auth option for SSO-only instances (fixes [#438](https://github.com/donetick/donetick/issues/438)) in [#699](https://github.com/donetick/donetick/pull/699)
+- Bug fixes 06/27/2026 by [@meauxt](https://github.com/meauxt) in [#712](https://github.com/donetick/donetick/pull/712)
+- unify docker file and add commit to the go releaser in [#724](https://github.com/donetick/donetick/pull/724)
+- remove the uniqueness requirement on api token name in [#726](https://github.com/donetick/donetick/pull/726)
+- Run migration script against sqlite always in [#731](https://github.com/donetick/donetick/pull/731)
+- App: filters/settings icon alignment in [#87](https://github.com/donetick/frontend/pull/87)
+- App: filter & chip navigation fixes (no more bouncing out of the PWA) in [#88](https://github.com/donetick/frontend/pull/88), [#89](https://github.com/donetick/frontend/pull/89), [#90](https://github.com/donetick/frontend/pull/90)
+- App: add Brazilian Portuguese (pt-BR) translation in [#90](https://github.com/donetick/frontend/pull/90)
+- App: add German translation in [#94](https://github.com/donetick/frontend/pull/94)
+- App: fix points history to include all circle members in [#93](https://github.com/donetick/frontend/pull/93), [#101](https://github.com/donetick/frontend/pull/101)
+- App: offline support for labels/projects/chore archiving, network listener + sync-on-reconnect in [#99](https://github.com/donetick/frontend/pull/99), [#110](https://github.com/donetick/frontend/pull/110), [#117](https://github.com/donetick/frontend/pull/117)
+- App: fix reinitialize api client after server URL changes in [#106](https://github.com/donetick/frontend/pull/106)
+- App: activity card status fix ('Missed'/'Rescheduled') in [#107](https://github.com/donetick/frontend/pull/107)
+- App: MFA handling improvements in [#111](https://github.com/donetick/frontend/pull/111)
+- App: add Japanese (ja) localization in [#112](https://github.com/donetick/frontend/pull/112)
+- App: donetick.com rebase/cleanup in [#113](https://github.com/donetick/frontend/pull/113), [#114](https://github.com/donetick/frontend/pull/114)
+- App: fix "anyone" assignee handling in [#116](https://github.com/donetick/frontend/pull/116), [#119](https://github.com/donetick/frontend/pull/119)
+- App: NFC tag scanner support (Android) in [#118](https://github.com/donetick/frontend/pull/118)
+- App: bug fixes 06-27-2026 in [#124](https://github.com/donetick/frontend/pull/124)
+- App: Add Task Modal v2 — smarter title input, quick due date/time picker in [#125](https://github.com/donetick/frontend/pull/125)
+- App: advanced filtering with grouping support in [#126](https://github.com/donetick/frontend/pull/126)
+- App: photo/AI attachments — OCR photo to task in [#127](https://github.com/donetick/frontend/pull/127)
+- App: general UX improvements in [#128](https://github.com/donetick/frontend/pull/128)
+- App: dependency fixes in [#129](https://github.com/donetick/frontend/pull/129)
+- App: task photo fix in [#130](https://github.com/donetick/frontend/pull/130)
+- App: bugfix rounds (incl. version prep for 1.2.6/1.2.7) in [#131](https://github.com/donetick/frontend/pull/131), [#133](https://github.com/donetick/frontend/pull/133), [#134](https://github.com/donetick/frontend/pull/134), [#135](https://github.com/donetick/frontend/pull/135)
+- App: integrate Fastlane, add release script in [#139](https://github.com/donetick/frontend/pull/139)
+- App: more bugfixes in [#140](https://github.com/donetick/frontend/pull/140)
+- App: fix iOS crash from Google Sign-In URL scheme, force fresh login before Google sign-in in [#148](https://github.com/donetick/frontend/pull/148), [#149](https://github.com/donetick/frontend/pull/149)
+- App: fix notification deep links in [#151](https://github.com/donetick/frontend/pull/151)
+- App: attachment upload/signing fixes, iOS sqlite metadata fix in [#152](https://github.com/donetick/frontend/pull/152), [#153](https://github.com/donetick/frontend/pull/153)
+
+Big thanks to all the contributions in this release! Thank you for making Donetick better!
+
+## New Contributors
+
+- [@mvanhorn](https://github.com/mvanhorn) made their first contribution in [#606](https://github.com/donetick/donetick/pull/606)
+- [@MaikuMori](https://github.com/MaikuMori) made their first contribution in [#634](https://github.com/donetick/donetick/pull/634)
+
+**Full Changelog (backend)**: [v0.1.75...v0.1.76-beta.20](https://github.com/donetick/donetick/compare/v0.1.75...v0.1.76-beta.20)
+**Full Changelog (app)**: [1.2.2...1.2.16](https://github.com/donetick/frontend/compare/4713e99...74d658f)
+
 ## 0.1.75:
 ## Release Notes:
 We have big release and will be updating the note in the next couple days! Because am sure I miss few things!
