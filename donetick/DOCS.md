@@ -32,6 +32,7 @@ Manual instructions:
 ```
 telegram_token: ""
 pushover_token: ""
+disable_password_auth: false
 disable_signup: false
 auth_provider: ""
 oauth2_client_id: ""
@@ -55,6 +56,7 @@ email_appHost: ""
 |-----------------------|----------|---------|------------------
 | telegram_token        | no       |         | optional token for telegram integration
 | pushover_token        | no       |         | optional token for pushover integration
+| disable_password_auth | no       | false   | If true, disables sign-in with password authentication.
 | disable_signup        | no       | false   | If true, disables user signups.
 | jwt_secret            | yes      |         | secret needed by donetick backend. Run `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` to generate and paste it in the field.
 
