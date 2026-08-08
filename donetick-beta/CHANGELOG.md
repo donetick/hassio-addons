@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.77-beta.3:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 627fe471acf908653404398e3129ae7b060b327a: Implement bumpChoreSyncVersions to manage sync versions for chore updates (#769) (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.77-beta.2:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
