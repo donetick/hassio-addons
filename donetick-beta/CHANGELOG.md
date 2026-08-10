@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.77-beta.4:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 0a5d15359259ee2e19797501ea02a21b2febd302: Fix:  issue where update was consider rescheduled (#776) (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.77-beta.3:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
