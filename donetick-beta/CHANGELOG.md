@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.77-beta.5:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* c34f62b9d4b748141be7d7839b476736b9008960: fix: add timeout to Discord webhook http client (#781) (Bunlong Heng <bheng.code@gmail.com>)
+
 ## 0.1.77-beta.4:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
