@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.78-beta.1:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 06f06f70b3114bcd03fdd7662fac6740f92c3fcf: Merge pull request #786 from donetick/chore-visibility-lock (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.77-beta.5:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
