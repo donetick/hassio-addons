@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.78-beta.2:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* be6070d66d72c9a93e83f224ea9b8d4365e0cf01: Merge pull request #791 from vFones/fix/column-in-migrations-not-existing (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.78-beta.1:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
