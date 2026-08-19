@@ -1,5 +1,48 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.79:
+## What's Changed
+* Update README.md by @meauxt in https://github.com/donetick/donetick/pull/661
+* feat(storage): add storage.path_style option for S3  by @MaikuMori in https://github.com/donetick/donetick/pull/635
+* Bugfix/rework api input validation by @hoborm in https://github.com/donetick/donetick/pull/607
+* add log_raw_url option to log password reset URL in console by @meauxt in https://github.com/donetick/donetick/pull/675
+* Graceful Validation with Warnings. to make sure we have a non-breaking by @meauxt in https://github.com/donetick/donetick/pull/674
+* Offline Support: Add Synchronization and Versioning by @meauxt in https://github.com/donetick/donetick/pull/665
+* bug bash 1 by @meauxt in https://github.com/donetick/donetick/pull/692
+* bugbash 2 by @meauxt in https://github.com/donetick/donetick/pull/691
+* Use URL-safe base64 for password reset and verification links by @chetmac in https://github.com/donetick/donetick/pull/689
+* improve storage implementation by @meauxt in https://github.com/donetick/donetick/pull/709
+* Bug fixes by @meauxt in https://github.com/donetick/donetick/pull/705
+* feat(auth): add disable_password_auth option for SSO-only instances (#438) by @louim in https://github.com/donetick/donetick/pull/699
+* Bug fixes 06 27 2026 by @meauxt in https://github.com/donetick/donetick/pull/712
+* Bugfix/rework api input validation frontend error by @hoborm in https://github.com/donetick/donetick/pull/681
+* unify with donetick.com by @meauxt in https://github.com/donetick/donetick/pull/723
+* Feature/donetick com support 2 by @meauxt in https://github.com/donetick/donetick/pull/724
+* make sure Signing/serving now agree by @meauxt in https://github.com/donetick/donetick/pull/725
+* remove the uniqueness  requirement on api token name by @meauxt in https://github.com/donetick/donetick/pull/726
+* strength api access and bug fixes  by @meauxt in https://github.com/donetick/donetick/pull/730
+* Run migration script agains sqlite always by @meauxt in https://github.com/donetick/donetick/pull/731
+* Fix anyone as assignees by @meauxt in https://github.com/donetick/donetick/pull/744
+* Send reminders to all circle members for chores assigned to "Anyone" by @meauxt in https://github.com/donetick/donetick/pull/746
+* Make sure removing and changing label bump syncverison by @meauxt in https://github.com/donetick/donetick/pull/762
+* Add payment routes back by @meauxt in https://github.com/donetick/donetick/pull/773
+* Implement bumpChoreSyncVersions for chore by @meauxt in https://github.com/donetick/donetick/pull/769
+* Implement user-scoped tombstones for chore visibility changes and enh… by @meauxt in https://github.com/donetick/donetick/pull/780
+* Fix:  issue where update was consider rescheduled by @meauxt in https://github.com/donetick/donetick/pull/776
+* Refactor UndoChore logic to simplify state restoration and remove unu… by @meauxt in https://github.com/donetick/donetick/pull/783
+* Add timeout to Discord webhook client by @bunlongheng in https://github.com/donetick/donetick/pull/781
+* Release 0.1.77 by @meauxt in https://github.com/donetick/donetick/pull/774
+* streamline locking logic in UpdateChoreVisibility method by @meauxt in https://github.com/donetick/donetick/pull/786
+* fix(db): check existence of labels and notification_meta columns by @vFones in https://github.com/donetick/donetick/pull/791
+* fix(workflows): update Go version to 1.24.3 in go-build.yml by @meauxt in https://github.com/donetick/donetick/pull/802
+
+## New Contributors
+* @chetmac made their first contribution in https://github.com/donetick/donetick/pull/689
+* @bunlongheng made their first contribution in https://github.com/donetick/donetick/pull/781
+* @vFones made their first contribution in https://github.com/donetick/donetick/pull/791
+
+**Full Changelog**: https://github.com/donetick/donetick/compare/v0.1.76...v0.1.79
+
 ## 0.1.76:
 ## Release Notes:
 
