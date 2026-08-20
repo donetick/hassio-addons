@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.80-beta.1:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 15bbf141eb2e17b577fa802ed0d12157f97fcf44: Merge pull request #802 from donetick/fix-go-release (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.78-beta.3:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
