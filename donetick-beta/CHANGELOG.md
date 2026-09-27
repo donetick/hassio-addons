@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.80-beta.2:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 3875c21ac5f578a76c0619266836b5abe4b08319: Merge pull request #850 from donetick/fixes-0920-just-duedate (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.80-beta.1:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
