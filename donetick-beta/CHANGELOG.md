@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.80-beta.3:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 656525838e83f21bfd584efd25bd435b1e6cec8a: Merge pull request #830 from wesleymerrick/fix/email-app-host-env-var (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.80-beta.2:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
