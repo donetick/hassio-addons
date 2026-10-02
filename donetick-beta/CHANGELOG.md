@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.80-beta.4:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* b125c4a888fbf0f95bd4ef4a1e139af3dc27292b: Merge pull request #858 from donetick/fix-hassio-integration (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.80-beta.3:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
