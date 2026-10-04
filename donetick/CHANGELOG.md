@@ -1,5 +1,9 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.80:
+## Changelog
+* e88d8bea62405ca02288f93dd70efab8c0f1ff2c: Merge pull request #863 from donetick/lint-and-test-1003 (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.79:
 ## What's Changed
 * Update README.md by @meauxt in https://github.com/donetick/donetick/pull/661
