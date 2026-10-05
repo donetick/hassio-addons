@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.81-beta.1:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* f123b3e93bd89141cb0a21ab1f4e7114a783990c: Merge pull request #583 from omarkohl/jip/auto-generate-selfhosted-yaml/qxqnktqw (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.80-beta.5:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
