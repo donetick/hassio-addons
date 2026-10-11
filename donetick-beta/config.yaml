@@ -31,6 +31,7 @@ options:
   jwt_max_refresh: "168h"
   telegram_token: ""
   pushover_token: ""
+  disable_password_auth: false
   disable_signup: false
   server_read_timeout: "10s"
   server_write_timeout: "10s"
@@ -63,6 +64,7 @@ schema:
 # General settings
   telegram_token: "str?"
   pushover_token: "str?"
+  disable_password_auth: "bool?"
   disable_signup: "bool?"
 
   # Server settings
