@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.81-beta.4:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 0de14d36cbd4f57ae93cf7df2466e73167c6ec40: Merge pull request #874 from torbenvanassche/develop (Mohamad Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.81-beta.3:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
