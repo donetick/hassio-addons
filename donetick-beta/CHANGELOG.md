@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.81-beta.7:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* f12c0564b500fff5c4e51c9b9cb3cc85cd3bbc60: Refactor chore deletion and subtask update broadcasting to pass entire chore object (Mo Tarbin <mhed.t91@gmail.com>)
+
 ## 0.1.81-beta.6:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
