@@ -1,5 +1,126 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.82:
+## Donetick v0.1.82
+
+Big one again! This release is headlined by project sharing with selected members or even making it private! reward store,  calendar sync plus a whole lot of fixes and a big push on the Home Assistant side. Bare with me if I miss something, will keep updating this over the next few days.
+
+
+- **Share projects with selected members**: private projects now have a third option — share with specific circle members, not just "only me" or "whole circle". You can preview the effect before saving, assignees who lose access get trimmed(@raulanatol and  @helgehelge123)
+
+- **Home Assistant integration**: a huge push by @torbenvanassche (THANK YOU!)  per-user task cards, task reassignment, inline task editing with native HA date/time controls, label and date filters on the task card, persistent completed-task history, label colors and row spacing, points and interval displays, a cleaned-up card editor, much faster load times, Anyone-task fixes, and a startup race fix. The repo also got a GPLv3 license and the README's server-version warning removed. If you haven't updated the integration yet, please go ahead and do it and enjoy the new Donetick card by @torbenvanassche ! 
+
+- **New Edit View**: a Huge thanks again for @torbenvanassche! yes been killing it this release. He revamped our edit screen and now look much nicer and more intuitive. Thanks also to Cornel, who put the original design together, and we iterated on it! 
+
+- **Reward store is here**: members can now spend their hard-earned points on parent-defined rewards. Each redemption goes through an admin/manager approval step, mirroring the chore completion approval flow. The app got a full rewards page too  browse the store, redeem, and (for admins) work through the approval queue. (@jandreaucodes) (you can see it Points Page)
+
+- **Calendar sync**: the iCal endpoint is back, plus per-user calendar tokens that can be revoked — subscribe to your chores from any calendar app. There's a calendar sync settings screen in the app to manage it. (Thanks to @joouha for the original iCal work.)
+
+- **API keys, new format**: keys now use a `dt_` prefix with hashed storage. and not we store hash of them Thanks to (@yildiz-fatih) 
+
+- **Join-request notifications**: push notifications when a circle join request is approved or declined, so nobody is left wondering.
+
+- **Scheduler fixes**: DST drift is fixed — local time of day stays stable across DST transitions and the chore timezone is applied to rolling `day_of_the_month` dates. Weekday chores can also start on a selected day now. (@DelayLama, @theluckystrike)
+
+- **Delegation fix**: you can delegate tasks to other circle members again. (@RichtarikOliver)
+
+- **Permissions**: circle admins/managers can now update and delete chores via the API (@torbenvanassche), and task completion actions landed for Things (@torbenvanassche). Editing a chore without labels no longer wipes its labels. (@helgehelge123)
+
+- **Donetick Bridge foundation **: new optional hosted bridge for self-hosters more to come in next release 
+
+- **Device tokens**: token replacement at the device limit and proper upsert, so re-logging in on a device doesn't pile up stale tokens.
+
+- **Self-hosting**: `selfhosted.yaml` is auto-generated on first startup (@omarkohl). Also removed the self-hosted GHCR build workflow that got added by mistake in an earlier PR.
+
+- **App side (frontend v1.2.56)**: reward store UI, calendar sync settings, project sharing UI, privacy controls on projects, "always available" tasks UI, a task editor wizard proposal (@torbenvanassche), task completion action controls, settings UI improvements (profile, points, activities, declining circle join requests), API token settings with copy, app icon badge counts, better speech recognition, R8 shrinking/obfuscation for the Android build, PKCE support and backend-sent OAuth scopes in the app (@Mark Dietzer), Italian translations restored (@Rello75cl), Arabic/French/Chinese updates, Crowdin plural-form
+
+## Special thanks:
+
+- @jandreaucodes for the reward store
+- @helgehelge123 and @raulanatol for project sharing and the labels fix
+- @torbenvanassche for the Home Assistant overhaul, API permissions, and Things completion actions
+- @yildiz-fatih for the new API key format
+- @DelayLama for the DST drift fix
+- @theluckystrike for the weekday start fix
+- @RichtarikOliver for the delegation fix
+- @joouha for the iCal endpoint
+- @omarkohl for the selfhosted.yaml auto-generate
+- @Mark Dietzer for PKCE and scopes in the app
+- @Rello75cl for restoring the Italian translations
+- @Conor O'Callaghan for text updates
+- everyone who filed issues, tested betas, and helped shape this release. Thank you!
+
+## What's Changed
+
+Backend (`donetick/donetick`):
+
+- Auto-generate selfhosted.yaml on first startup by @omarkohl in https://github.com/donetick/donetick/pull/583
+- Fix DST drift: stable local time across DST, timezone-aware rolling dates by @DelayLama in https://github.com/donetick/donetick/pull/809
+- Add iCal endpoint by @joouha in https://github.com/donetick/donetick/pull/631
+- 1006 fixes (incl. #748) in https://github.com/donetick/donetick/pull/870
+- Can't delegate task to other circle member by @RichtarikOliver in https://github.com/donetick/donetick/pull/871
+- Calendar ICS: token model + repository in https://github.com/donetick/donetick/pull/872
+- Allow circle admins/managers to update and delete chores via API by @torbenvanassche in https://github.com/donetick/donetick/pull/874
+- Start weekday chores on a selected day by @theluckystrike in https://github.com/donetick/donetick/pull/868
+- Donetick Bridge integration in https://github.com/donetick/donetick/pull/875
+- Task completion actions for Things by @torbenvanassche in https://github.com/donetick/donetick/pull/878
+- Push notifications for join request approvals/declines in https://github.com/donetick/donetick/pull/883
+- Device token upsert + replacement at device limit in https://github.com/donetick/donetick/pull/849
+- Keep labels when an update omits labelsV2 by @helgehelge123 in https://github.com/donetick/donetick/pull/881
+- Share projects with selected circle members by @helgehelge123 in https://github.com/donetick/donetick/pull/882
+- Standardize API key format with hashed storage and dt_ prefix by @yildiz-fatih in https://github.com/donetick/donetick/pull/800
+- Reward store: redeem points for admin-defined rewards by @jandreaucodes in https://github.com/donetick/donetick/pull/841
+- Remove self-hosted build workflow (added by mistake) in https://github.com/donetick/donetick/pull/888
+
+App (`donetick/frontend`, v1.2.55 → v1.2.56):
+
+- Use backend-sent scopes with fallback by @Mark Dietzer in https://github.com/donetick/frontend/pull/162
+- Implement PKCE support by @Mark Dietzer in https://github.com/donetick/frontend/pull/164
+- Fix #818 in https://github.com/donetick/frontend/pull/278
+- Privacy control on projects + inherit on tasks in https://github.com/donetick/frontend/pull/274
+- Always available tasks in https://github.com/donetick/frontend/pull/277
+- Assignees selection visual feedback in https://github.com/donetick/frontend/pull/284
+- Service worker updates in https://github.com/donetick/frontend/pull/285
+- Restore complete Italian translations by @Rello75cl in https://github.com/donetick/frontend/pull/287
+- Paywall prompts for free-plan limits in https://github.com/donetick/frontend/pull/289
+- Calendar sync settings in https://github.com/donetick/frontend/pull/291
+- Fix: isPlus account mistakenly reversed in https://github.com/donetick/frontend/pull/292
+- Crowdin plural forms + translation safety checks in https://github.com/donetick/frontend/pull/297, https://github.com/donetick/frontend/pull/296
+- Task completion action controls by @torbenvanassche in https://github.com/donetick/frontend/pull/305
+- Task editor wizard by @torbenvanassche in https://github.com/donetick/frontend/pull/306
+- Share projects with selected circle members by @helgehelge123 in https://github.com/donetick/frontend/pull/308
+- Project members improvements in https://github.com/donetick/frontend/pull/314
+- Mobile navbar title in https://github.com/donetick/frontend/pull/315
+- Settings UI: profile + decline circle join requests in https://github.com/donetick/frontend/pull/316
+- Settings UI: user points + user activities in https://github.com/donetick/frontend/pull/317
+- API token settings UI in https://github.com/donetick/frontend/pull/318
+- Reward store UI in https://github.com/donetick/frontend/pull/319
+- Notification template design in https://github.com/donetick/frontend/pull/320
+- Desktop top margin, notifications look, collapsible EditChore in https://github.com/donetick/frontend/pull/321
+- Arabic + French localizations in https://github.com/donetick/frontend/pull/322
+- Paywall event fix in https://github.com/donetick/frontend/pull/323
+- R8 shrinking + obfuscation in release build in https://github.com/donetick/frontend/pull/324
+- Donetick Bridge integration in https://github.com/donetick/frontend/pull/325
+- Capacitor Badge integration + sync in https://github.com/donetick/frontend/pull/326
+- Fixes in https://github.com/donetick/frontend/pull/307, https://github.com/donetick/frontend/pull/309, https://github.com/donetick/frontend/pull/269
+- Translation batches in https://github.com/donetick/frontend/pull/273, https://github.com/donetick/frontend/pull/279, https://github.com/donetick/frontend/pull/281, https://github.com/donetick/frontend/pull/286, https://github.com/donetick/frontend/pull/280, https://github.com/donetick/frontend/pull/293
+
+Home Assistant Integration(`donetick/donetick-hass-integration`, main since v0.1.80, Yes sorry we don't yet have proper versioning there):
+
+- Project support by @postwait in https://github.com/donetick/donetick-hass-integration/pull/51
+- Per-user task cards by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/58
+- Task card bugfixes by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/60
+- Task card label filter by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/63
+- Fix card startup race by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/64
+- Fix Anyone tasks by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/66
+- Task sensor points interval by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/67
+- Task completion history by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/68
+- Card editor cleanup in https://github.com/donetick/donetick-hass-integration/pull/69, https://github.com/donetick/donetick-hass-integration/pull/70
+
+
+<img width="334" height="742" alt="image" src="https://github.com/user-attachments/assets/39cc77f4-b65e-4e1e-8716-bea6385d9476" />
+<img width="333" height="743" alt="image" src="https://github.com/user-attachments/assets/055576b4-2c42-448b-81a3-432c9a1e6cf0" />
+
 ## 0.1.80:
 ## Changelog
 * e88d8bea62405ca02288f93dd70efab8c0f1ff2c: Merge pull request #863 from donetick/lint-and-test-1003 (Mohamad Tarbin <mhed.t91@gmail.com>)
