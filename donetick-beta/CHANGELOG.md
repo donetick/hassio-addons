@@ -2,6 +2,14 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.83-beta.1:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* acb859a047075aa2a398c5a893f8e44088b42238: fix: fetch full tag history in go-release checkout (@meauxt)
+* 9d9921d45efe336a1a17a81bb55d1a3af4b046a6: Merge pull request #894 from donetick/fix/go-release-checkout-tags (@meauxt)
+
 ## 0.1.81-beta.7:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
