@@ -1,5 +1,12 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.83:
+## Changelog
+* 9b2ea2b94a73e496dff8ad2b7258afced412d978: fix(chore): restore handler changes lost in the reward-store merge (@pcbeingused333)
+* 466f2cd97adf75b834174fce41d71f68f422ee00: fix(label): remove chore labels attached by another member (@pcbeingused333)
+* 8687826cf9d0c0f0da5e1a2a4b9f370a1c74600d: Merge pull request #897 from pcbeingused333/fix/restore-chore-handler-after-reward-merge (@meauxt)
+* 549e44c836de6b54f026624ccce9d6e8df726a30: Merge pull request #898 from pcbeingused333/fix/remove-labels-added-by-other-members (@meauxt)
+
 ## 0.1.82:
 ## Donetick v0.1.82
 
