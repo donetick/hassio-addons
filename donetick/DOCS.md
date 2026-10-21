@@ -84,6 +84,29 @@ NOTE - if `email_port` is not set, the server will not start.
 | email_port            | yes      | 587     | SMTP port for your email provider
 | email_appHost         | no       |         | Your DoneTick instance's URL (incl. http(s) and port)
 
+### Storage settings
+
+Local storage is enabled by default. Profile photos and other uploaded files are
+stored in `/data/uploads`, which is part of the app's persistent data and survives
+restarts and app updates. No AWS account or region is needed for local storage.
+Change these settings in the app's **Configuration** tab, save, and restart the app.
+
+| Option | Default | Explanation |
+|--------|---------|-------------|
+| `storage_type` | `local` | Select `local` or `s3`. |
+| `storage_base_path` | empty | Local: defaults to `/data/uploads`; use a path under `/data` for persistence. S3: optional object key prefix, empty for the bucket root. |
+| `storage_bucket_name` | empty | Required S3 bucket name. |
+| `storage_region` | empty | Required S3 provider region. |
+| `storage_access_key` | empty | Required S3 access key. |
+| `storage_secret_key` | empty | Required S3 secret key. |
+| `storage_endpoint` | empty | Optional endpoint URL for S3-compatible providers; empty for AWS S3. |
+| `storage_path_style` | `false` | Enable for S3 providers requiring path-style addressing, such as MinIO. |
+
+S3 settings are unnecessary for local storage. Selecting S3 without a bucket,
+region, access key, or secret key stops startup with an explanatory message.
+Changing the storage provider or path does not migrate existing uploads.
+The same options are available in the beta app.
+
 ## Support
 For issues, feature requests, or questions, please open an issue on the [GitHub repository](https://github.com/donetick/hassio-addons/issues).
 

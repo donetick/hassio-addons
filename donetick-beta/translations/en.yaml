@@ -1,4 +1,25 @@
 configuration:
-  message:
-    name: Message
-    description: The message that will be printed to the log when starting this example add-on.
+  storage_type:
+    name: Storage type
+    description: Local (default) stores uploaded photos and files in this app's persistent data directory. Select s3 to use an S3-compatible service.
+  storage_base_path:
+    name: Upload directory or S3 prefix
+    description: Leave empty for /data/uploads with local storage, or no object prefix with S3. Custom local directories must be under /data to persist across app updates.
+  storage_bucket_name:
+    name: S3 bucket
+    description: Required for S3 storage; ignored for local storage.
+  storage_region:
+    name: S3 region
+    description: Required for S3 storage. Use the region specified by your storage provider.
+  storage_access_key:
+    name: S3 access key
+    description: Required for S3 storage; ignored for local storage.
+  storage_secret_key:
+    name: S3 secret key
+    description: Required for S3 storage; ignored for local storage.
+  storage_endpoint:
+    name: S3 endpoint
+    description: Optional endpoint URL for S3-compatible providers. Leave empty for AWS S3.
+  storage_path_style:
+    name: S3 path-style addressing
+    description: Enable for providers such as MinIO that require endpoint/bucket/key URLs. Ignored for local storage.

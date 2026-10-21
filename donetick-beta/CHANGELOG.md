@@ -2,6 +2,11 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## Unreleased
+
+- Default uploaded photos and files to persistent local storage under `/data/uploads`.
+- Expose local and S3 storage configuration, with startup validation for S3 settings.
+
 ## 0.1.84-beta.1:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
