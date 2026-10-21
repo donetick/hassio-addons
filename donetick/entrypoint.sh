@@ -40,6 +40,44 @@ export DT_SCHEDULER_JOBS_DUE_JOB=$(bashio::config 'scheduler_jobs_due_job')
 export DT_SCHEDULER_JOBS_OVERDUE_JOB=$(bashio::config 'scheduler_jobs_overdue_job')
 export DT_SCHEDULER_JOBS_PRE_DUE_JOB=$(bashio::config 'scheduler_jobs_pre_due_job')
 
+# Storage settings. Existing installations may not have the new options yet.
+export DT_STORAGE_STORAGE_TYPE="local"
+if bashio::config.has_value 'storage_type'; then
+    DT_STORAGE_STORAGE_TYPE="$(bashio::config 'storage_type')"
+fi
+export DT_STORAGE_BASE_PATH=""
+if bashio::config.has_value 'storage_base_path'; then
+    DT_STORAGE_BASE_PATH="$(bashio::config 'storage_base_path')"
+fi
+
+case "${DT_STORAGE_STORAGE_TYPE}" in
+    local)
+        export DT_STORAGE_BASE_PATH="${DT_STORAGE_BASE_PATH:-/data/uploads}"
+        mkdir -p -- "${DT_STORAGE_BASE_PATH}" || bashio::exit.nok "Cannot create the local upload directory."
+        ;;
+    s3)
+        for option in bucket_name region access_key secret_key; do
+            if ! bashio::config.has_value "storage_${option}"; then
+                bashio::exit.nok "S3 storage requires storage_${option}. Set it in the app configuration."
+            fi
+        done
+        ;;
+    *)
+        bashio::exit.nok "Unsupported storage_type. Choose local or s3."
+        ;;
+esac
+
+for option in bucket_name region access_key secret_key endpoint; do
+    if bashio::config.has_value "storage_${option}"; then
+        export "DT_STORAGE_${option^^}=$(bashio::config "storage_${option}")"
+    fi
+done
+export DT_STORAGE_PATH_STYLE="false"
+if bashio::config.has_value 'storage_path_style'; then
+    DT_STORAGE_PATH_STYLE="$(bashio::config 'storage_path_style')"
+fi
+# End storage settings.
+
 #
 # Start donetick backend and save PID 
 bashio::log.info "Starting Donetick backend..."
