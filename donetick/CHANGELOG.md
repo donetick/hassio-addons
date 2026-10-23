@@ -1,5 +1,9 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## Unreleased
+
+- Fix `disable_signup` so enabling it blocks new account registration.
+
 ## 0.1.83:
 ## Changelog
 * 9b2ea2b94a73e496dff8ad2b7258afced412d978: fix(chore): restore handler changes lost in the reward-store merge (@pcbeingused333)

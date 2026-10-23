@@ -2,6 +2,10 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## Unreleased
+
+- Fix `disable_signup` so enabling it blocks new account registration.
+
 ## 0.1.84-beta.1:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
