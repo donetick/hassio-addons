@@ -2,6 +2,18 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.84-beta.4:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 5dd158ab6905e46e37f63740d66e021e7ab015ba: Add Support for Project Views (@meauxt)
+* c96c88fd730ca176690c5f36eb1457e8053397a9: Apply fixes (@meauxt)
+* 54e4432b847aa47faf7568eb28e29f7e269b91fa: Merge pull request #924 from donetick/project-board-and-list-view (@meauxt)
+* bb3c895e141dd583d63d63de0f40e235e534a195: Add tests for chore creation and append logic in project sections (@meauxt)
+* 64651537a808a3c7649da20b68945bd4d55e9d65: Merge pull request #927 from donetick/projecd-board-and-list-view-patch (@meauxt)
+* 2a0e1dc23a18b377747ce1ccb30bb91b660d137f: Return success count in SendToDeviceTokens when no failures occur (@meauxt)
+
 ## 0.1.84-beta.2:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
