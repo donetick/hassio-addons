@@ -2,6 +2,15 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.84-beta.5:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 437a640d6d825bd9dc08b46f19ad946b119e995e: Implement item sharing and privacy features for labels and filters (@meauxt)
+* ff6508e3fef16b8a5eef1117f04b50c4f347f7f1: Enhance chore broadcasting to handle private labels per recipient and add tests for label privacy (@meauxt)
+* 93eac37a878c72e8403b2c0bbb6f6f0f06fd13fd: Merge pull request #936 from donetick/label-filter-acl (@meauxt)
+
 ## 0.1.84-beta.4:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
