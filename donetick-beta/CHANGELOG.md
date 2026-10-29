@@ -6,6 +6,38 @@
 
 - Expose optional S3-compatible storage settings while preserving existing backend configuration by default.
 - Document self-hosted S3 services and explicit local filesystem opt-in for development, with a startup warning.
+- Fix `disable_signup` so enabling it blocks new account registration.
+
+## 0.1.84-beta.5:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 437a640d6d825bd9dc08b46f19ad946b119e995e: Implement item sharing and privacy features for labels and filters (@meauxt)
+* ff6508e3fef16b8a5eef1117f04b50c4f347f7f1: Enhance chore broadcasting to handle private labels per recipient and add tests for label privacy (@meauxt)
+* 93eac37a878c72e8403b2c0bbb6f6f0f06fd13fd: Merge pull request #936 from donetick/label-filter-acl (@meauxt)
+
+## 0.1.84-beta.4:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 5dd158ab6905e46e37f63740d66e021e7ab015ba: Add Support for Project Views (@meauxt)
+* c96c88fd730ca176690c5f36eb1457e8053397a9: Apply fixes (@meauxt)
+* 54e4432b847aa47faf7568eb28e29f7e269b91fa: Merge pull request #924 from donetick/project-board-and-list-view (@meauxt)
+* bb3c895e141dd583d63d63de0f40e235e534a195: Add tests for chore creation and append logic in project sections (@meauxt)
+* 64651537a808a3c7649da20b68945bd4d55e9d65: Merge pull request #927 from donetick/projecd-board-and-list-view-patch (@meauxt)
+* 2a0e1dc23a18b377747ce1ccb30bb91b660d137f: Return success count in SendToDeviceTokens when no failures occur (@meauxt)
+
+## 0.1.84-beta.2:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 3cca362e405dfb238cc21582acb54bff04eb99c6: fix(account): remove password requirement for account deletion (@meauxt)
+* b09cbf813c296e3b556d010f95921f525f5d47a9: Merge pull request #913 from donetick/reduce-account-deletion-restriction (@meauxt)
+* ee533c414edee91be16429ebf8756ad0a5697e9d: Revert "fix(account): remove password requirement for account deletion" (@meauxt)
+* 663e7fdf44a2ac949edb133858fe86efd10aa706: Merge pull request #914 from donetick/revert-913-reduce-account-deletion-restriction (@meauxt)
 
 ## 0.1.84-beta.1:
 > [!WARNING]

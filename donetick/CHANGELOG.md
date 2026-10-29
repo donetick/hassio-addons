@@ -4,6 +4,7 @@
 
 - Expose optional S3-compatible storage settings while preserving existing backend configuration by default.
 - Document self-hosted S3 services and explicit local filesystem opt-in for development, with a startup warning.
+- Fix `disable_signup` so enabling it blocks new account registration.
 
 ## 0.1.83:
 ## Changelog
