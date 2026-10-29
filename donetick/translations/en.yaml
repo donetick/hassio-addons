@@ -1,25 +1,25 @@
 configuration:
   storage_type:
-    name: Storage type
-    description: Local (default) stores uploaded photos and files in this app's persistent data directory. Select s3 to use an S3-compatible service.
+    name: Storage provider
+    description: Auto preserves existing backend configuration (S3 when unconfigured). Use s3 for an external or self-hosted S3-compatible service. Local filesystem storage is an explicit development option, not recommended for production.
   storage_base_path:
-    name: Upload directory or S3 prefix
-    description: Leave empty for /data/uploads with local storage, or no object prefix with S3. Custom local directories must be under /data to persist across app updates.
+    name: S3 prefix or local upload directory
+    description: Leave unset or blank to preserve the S3 prefix. Explicitly selecting local defaults to /data/uploads unless a directory is supplied. Keep local files under /data for persistence.
   storage_bucket_name:
     name: S3 bucket
-    description: Required for S3 storage; ignored for local storage.
+    description: Bucket created on your S3-compatible service. Leave unset or blank to preserve backend configuration.
   storage_region:
     name: S3 region
-    description: Required for S3 storage. Use the region specified by your storage provider.
+    description: Region specified by your storage provider. Leave unset or blank to preserve backend configuration.
   storage_access_key:
     name: S3 access key
-    description: Required for S3 storage; ignored for local storage.
+    description: Access key for your S3-compatible service. Leave unset or blank to preserve backend configuration.
   storage_secret_key:
     name: S3 secret key
-    description: Required for S3 storage; ignored for local storage.
+    description: Secret key for your S3-compatible service. Leave unset or blank to preserve backend configuration.
   storage_endpoint:
     name: S3 endpoint
-    description: Optional endpoint URL for S3-compatible providers. Leave empty for AWS S3.
+    description: Endpoint URL for a self-hosted or hosted S3-compatible service. Leave unset or blank to preserve backend configuration; the backend default is AWS S3.
   storage_path_style:
     name: S3 path-style addressing
-    description: Enable for providers such as MinIO that require endpoint/bucket/key URLs. Ignored for local storage.
+    description: Enable for services requiring endpoint/bucket/key addressing. Omit to preserve backend configuration; false explicitly disables it. Requires a backend release supporting storage.path_style.

@@ -26,15 +26,8 @@ image: "ghcr.io/donetick/{arch}-hassio-addons-beta"
 
 
 options:
-  # Storage: local files stay in the app's persistent /data directory.
-  storage_type: local
-  storage_base_path: ""
-  storage_bucket_name: ""
-  storage_region: ""
-  storage_access_key: ""
-  storage_secret_key: ""
-  storage_endpoint: ""
-  storage_path_style: false
+  # Preserve existing storage configuration; local storage requires explicit opt-in.
+  storage_type: auto
   jwt_secret: "change_this_to_a_secure_random_string_32_characters_long"
   jwt_session_time: "168h"
   jwt_max_refresh: "168h"
@@ -65,7 +58,7 @@ options:
 
 schema:
   # Storage settings
-  storage_type: "list(local|s3)?"
+  storage_type: "list(auto|s3|local)?"
   storage_base_path: "str?"
   storage_bucket_name: "str?"
   storage_region: "str?"

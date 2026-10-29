@@ -1,9 +1,11 @@
-"""Exercise app storage startup with Bash and configuration fixtures."""
+"""Exercise startup configuration and upgrades, not backend/S3 integration."""
 import json
 import os
 from pathlib import Path
 import shlex
+import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -11,96 +13,164 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 ADDONS = ("donetick", "donetick-beta")
+BASH = shutil.which("bash") or "C:/Program Files/Git/bin/bash.exe"
 
 
 class StorageTests(unittest.TestCase):
-    def run_storage(self, addon, options):
+    def run_storage(self, addon, options, inherited=None, mkdir_fails=False):
         source = (ROOT / addon / "entrypoint.sh").read_text()
-        block = source.split("# Storage settings.", 1)[1].split("\n", 1)[1].split("# End storage settings.", 1)[0]
-        cases = "\n".join(f"{shlex.quote(key)}) printf '%s' {shlex.quote(str(value).lower() if isinstance(value, bool) else str(value))} ;;"
-                          for key, value in options.items())
-        script = """
+        block = "# Storage settings." + source.split("# Storage settings.", 1)[1].split("# End storage settings.", 1)[0]
+        cases = "\n".join(
+            f"{shlex.quote(key)}) printf '%s' {shlex.quote(str(value).lower() if isinstance(value, bool) else str(value))} ;;"
+            for key, value in options.items() if value is not None)
+        script = r'''
 set -e
 bashio::config() {
     case "$1" in
 CASES
-        *) return 1 ;;
+        *) printf '%s' null ;;
     esac
 }
+bashio::config.exists() { [[ "$(bashio::config "$1")" != null ]]; }
 bashio::config.has_value() {
     local value
-    value="$(bashio::config "$1")" || return 1
-    [[ -n "$value" ]]
+    value="$(bashio::config "$1")"
+    [[ "$value" != null && -n "$value" ]]
 }
 bashio::exit.nok() { printf '%s\n' "$1" >&2; exit 1; }
-""".replace("CASES", cases) + block + "\npython -c " + shlex.quote(
-            'import json, os; print(json.dumps({k:v for k,v in os.environ.items() if k.startswith("DT_STORAGE_")}))')
+bashio::log.warning() { printf '%s\n' "$1" >&2; }
+mkdir() {
+    printf '%s\n' "$@" >> "$TEST_MKDIR_LOG"
+    [[ "$TEST_MKDIR_FAIL" != true ]] || return 1
+    # Avoid requiring root for the default persistent directory.
+    [[ "${@: -1}" == /data/uploads ]] || command mkdir "$@"
+}
+'''.replace("CASES", cases)
+        dump = 'import json, os; print(json.dumps({k:v for k,v in os.environ.items() if k.startswith("DT_STORAGE_")}))'
+        script += block + "\n" + shlex.quote(sys.executable.replace("\\", "/")) + " -c " + shlex.quote(dump)
         environment = {k: v for k, v in os.environ.items() if not k.startswith("DT_STORAGE_")}
-        return subprocess.run(["bash", "-c", script], env=environment, text=True, capture_output=True)
+        environment.update(inherited or {})
+        # Git Bash otherwise converts /data/uploads before native Windows Python sees it.
+        environment["MSYS2_ENV_CONV_EXCL"] = "DT_STORAGE_BASE_PATH"
+        with tempfile.TemporaryDirectory(dir=ROOT) as directory:
+            log = Path(directory) / "mkdir.log"
+            environment.update(TEST_MKDIR_LOG=log.as_posix(), TEST_MKDIR_FAIL=str(mkdir_fails).lower())
+            result = subprocess.run([BASH, "-c", script], env=environment, text=True, capture_output=True)
+            result.mkdir_args = log.read_text().splitlines() if log.exists() else []
+        return result
 
-    def test_existing_installations_default_to_persistent_local_storage(self):
+    def config(self, result):
+        self.assertEqual(result.returncode, 0, result.stderr)
+        return json.loads(result.stdout)
+
+    def test_missing_auto_empty_and_null_provider_preserve_backend_defaults(self):
         for addon in ADDONS:
-            with self.subTest(addon=addon):
-                result = self.run_storage(addon, {})
-                self.assertEqual(result.returncode, 0, result.stderr)
-                config = json.loads(result.stdout)
-                self.assertEqual(config["DT_STORAGE_STORAGE_TYPE"], "local")
-                self.assertEqual(config["DT_STORAGE_BASE_PATH"], "/data/uploads")
-                self.assertTrue(Path("/data/uploads").is_dir())
+            for options in ({}, {"storage_type": "auto"}, {"storage_type": ""}, {"storage_type": None}):
+                with self.subTest(addon=addon, options=options):
+                    result = self.run_storage(addon, options)
+                    self.assertEqual(self.config(result), {})
+                    self.assertEqual(result.stderr, "")
+                    self.assertEqual(result.mkdir_args, [])
 
-    def test_local_directory_is_created_with_spaces(self):
-        with tempfile.TemporaryDirectory() as directory:
-            target = str(Path(directory) / "profile photos")
-            for addon in ADDONS:
-                result = self.run_storage(addon, {"storage_type": "local", "storage_base_path": target})
-                self.assertEqual(result.returncode, 0, result.stderr)
-                self.assertEqual(json.loads(result.stdout)["DT_STORAGE_BASE_PATH"], target)
-                self.assertTrue(Path(target).is_dir())
-
-    def test_s3_configuration_reaches_backend_without_logging_credentials(self):
-        options = dict(storage_type="s3", storage_base_path="uploads", storage_bucket_name="photos",
-                       storage_region="eu-west-1", storage_access_key="access key", storage_secret_key="secret $key with spaces",
-                       storage_endpoint="https://storage.example.invalid", storage_path_style=True)
+    def test_auto_preserves_all_inherited_s3_settings(self):
+        inherited = dict(DT_STORAGE_STORAGE_TYPE="remote", DT_STORAGE_BASE_PATH="existing",
+                         DT_STORAGE_BUCKET_NAME="photos", DT_STORAGE_REGION="eu-west-1",
+                         DT_STORAGE_ACCESS_KEY="access", DT_STORAGE_SECRET_KEY="secret",
+                         DT_STORAGE_ENDPOINT="https://storage.example.invalid", DT_STORAGE_PATH_STYLE="true")
         for addon in ADDONS:
-            result = self.run_storage(addon, options)
-            self.assertEqual(result.returncode, 0, result.stderr)
-            actual = json.loads(result.stdout)
-            for key, value in options.items():
-                env_key = "DT_STORAGE_STORAGE_TYPE" if key == "storage_type" else "DT_" + key.upper()
-                self.assertEqual(actual[env_key], str(value).lower() if isinstance(value, bool) else value)
+            for options in ({}, {"storage_type": "auto"}):
+                self.assertEqual(self.config(self.run_storage(addon, options, inherited)), inherited)
+
+    def test_s3_options_override_only_supplied_values(self):
+        inherited = {"DT_STORAGE_PATH_STYLE": "true", "DT_STORAGE_REGION": "old"}
+        options = dict(storage_type="s3", storage_base_path="assets", storage_path_style=False,
+                       storage_region="eu-west-1", storage_access_key="access key",
+                       storage_secret_key="secret $key `literal` with spaces",
+                       storage_endpoint="https://storage.example.invalid", storage_bucket_name="photos")
+        for addon in ADDONS:
+            result = self.run_storage(addon, options, inherited)
+            expected = {"DT_" + key.upper(): str(value).lower() if isinstance(value, bool) else value
+                        for key, value in options.items() if key != "storage_type"}
+            expected["DT_STORAGE_STORAGE_TYPE"] = "remote"
+            self.assertEqual(self.config(result), expected)
             self.assertEqual(result.stderr, "")
 
-    def test_s3_missing_required_fields_stops_startup(self):
-        options = dict(storage_type="s3", storage_bucket_name="photos", storage_region="eu-west-1",
-                       storage_access_key="access", storage_secret_key="secret")
+    def test_auto_allows_individual_setting_overrides(self):
         for addon in ADDONS:
-            for field in ("storage_bucket_name", "storage_region", "storage_access_key", "storage_secret_key"):
-                with self.subTest(addon=addon, field=field):
-                    result = self.run_storage(addon, {**options, field: ""})
-                    self.assertNotEqual(result.returncode, 0)
-                    self.assertIn(field, result.stderr)
-                    self.assertEqual(result.stdout, "")
+            result = self.run_storage(addon, {"storage_region": "new"}, {"DT_STORAGE_REGION": "old"})
+            self.assertEqual(self.config(result), {"DT_STORAGE_REGION": "new"})
+
+    def test_s3_does_not_require_credentials_in_addon_options(self):
+        for addon in ADDONS:
+            result = self.run_storage(addon, {"storage_type": "s3"})
+            self.assertEqual(self.config(result), {"DT_STORAGE_STORAGE_TYPE": "remote"})
+            self.assertEqual(result.stderr, "")
+
+    def test_null_options_do_not_override_backend(self):
+        for addon in ADDONS:
+            inherited = {"DT_STORAGE_PATH_STYLE": "true", "DT_STORAGE_REGION": "existing"}
+            result = self.run_storage(addon, {"storage_path_style": None, "storage_region": None}, inherited)
+            self.assertEqual(self.config(result), inherited)
+
+    def test_blank_fields_preserve_existing_s3_values(self):
+        inherited = {"DT_STORAGE_BASE_PATH": "assets", "DT_STORAGE_ENDPOINT": "https://existing.invalid",
+                     "DT_STORAGE_REGION": "existing"}
+        for addon in ADDONS:
+            result = self.run_storage(addon, {"storage_base_path": "", "storage_endpoint": "", "storage_region": ""}, inherited)
+            self.assertEqual(self.config(result), inherited)
+
+    def test_switching_to_local_does_not_reuse_an_s3_prefix(self):
+        for addon in ADDONS:
+            result = self.run_storage(addon, {"storage_type": "local"},
+                                      {"DT_STORAGE_STORAGE_TYPE": "remote", "DT_STORAGE_BASE_PATH": "assets"})
+            self.assertEqual(self.config(result)["DT_STORAGE_BASE_PATH"], "/data/uploads")
+
+    def test_explicit_local_defaults_to_persistent_directory_with_warning(self):
+        for addon in ADDONS:
+            result = self.run_storage(addon, {"storage_type": "local"})
+            self.assertEqual(self.config(result), {"DT_STORAGE_STORAGE_TYPE": "local", "DT_STORAGE_BASE_PATH": "/data/uploads"})
+            self.assertEqual(result.mkdir_args, ["-p", "--", "/data/uploads"])
+            self.assertIn("not recommended for production", result.stderr)
+
+    def test_local_directory_with_spaces_is_created(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as directory:
+            target = Path(directory) / "profile photos"
+            for addon in ADDONS:
+                result = self.run_storage(addon, {"storage_type": "local", "storage_base_path": target.as_posix()})
+                self.assertEqual(self.config(result)["DT_STORAGE_BASE_PATH"], target.as_posix())
+                self.assertTrue(target.is_dir())
+
+    def test_auto_preserves_existing_local_provider_and_path(self):
+        with tempfile.TemporaryDirectory(dir=ROOT) as directory:
+            inherited = {"DT_STORAGE_STORAGE_TYPE": "local", "DT_STORAGE_BASE_PATH": Path(directory).as_posix()}
+            for addon in ADDONS:
+                self.assertEqual(self.config(self.run_storage(addon, {}, inherited)), inherited)
+
+    def test_local_directory_creation_failure_stops_startup(self):
+        for addon in ADDONS:
+            result = self.run_storage(addon, {"storage_type": "local"}, mkdir_fails=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("Cannot create", result.stderr)
+            self.assertEqual(result.stdout, "")
 
     def test_invalid_storage_type_is_rejected(self):
         for addon in ADDONS:
             result = self.run_storage(addon, {"storage_type": "typo"})
             self.assertNotEqual(result.returncode, 0)
-            self.assertIn("Choose local or s3", result.stderr)
+            self.assertIn("Choose auto, s3 or local", result.stderr)
 
-    def test_configuration_and_translations_expose_storage_options(self):
+    def test_defaults_schema_translations_and_shell_syntax(self):
         for addon in ADDONS:
             config = yaml.safe_load((ROOT / addon / "config.yaml").read_text())
             translations = yaml.safe_load((ROOT / addon / "translations/en.yaml").read_text())["configuration"]
-            self.assertEqual(config["options"]["storage_type"], "local")
-            self.assertEqual(config["schema"]["storage_type"], "list(local|s3)?")
+            defaults = {k: v for k, v in config["options"].items() if k.startswith("storage_")}
+            self.assertEqual(defaults, {"storage_type": "auto"})
+            self.assertEqual(config["schema"]["storage_type"], "list(auto|s3|local)?")
             self.assertEqual(config["schema"]["storage_secret_key"], "password?")
-            options = {key: value for key, value in config["options"].items() if key.startswith("storage_")}
-            for key in options:
-                self.assertIn(key, config["schema"])
-                self.assertIn(key, translations)
-            result = self.run_storage(addon, options)
-            self.assertEqual(result.returncode, 0, result.stderr)
-            subprocess.run(["bash", "-n", str(ROOT / addon / "entrypoint.sh")], check=True)
+            fields = {k for k in config["schema"] if k.startswith("storage_")}
+            self.assertEqual(fields, set(translations))
+            self.assertEqual(self.config(self.run_storage(addon, defaults)), {})
+            subprocess.run([BASH, "-n", str(ROOT / addon / "entrypoint.sh")], check=True)
 
 
 if __name__ == "__main__":

@@ -2,8 +2,8 @@
 
 ## Unreleased
 
-- Default uploaded photos and files to persistent local storage under `/data/uploads`.
-- Expose local and S3 storage configuration, with startup validation for S3 settings.
+- Expose optional S3-compatible storage settings while preserving existing backend configuration by default.
+- Document self-hosted S3 services and explicit local filesystem opt-in for development, with a startup warning.
 
 ## 0.1.83:
 ## Changelog
