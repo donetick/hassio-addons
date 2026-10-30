@@ -2,6 +2,18 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.84-beta.6:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* dbfba02777cf37ae49986e4a33c4d55ad0a4684a: feat: add support for assignment and pending approval notifications (@meauxt)
+* e44a89040f3fe1c4ea0908594bbeb8180d4ec290: Refactor notification handling to use a dispatcher for pending approval and redemption requests (@meauxt)
+* 9a72aaf009792d6d24085ca64bec9aafd9b66e94: feat: enhance chore notification handling and add planning tests (@meauxt)
+* fea4cd3a0bb26ff83c7a104b05184c74b52457a0: feat: update notification priority handling and preferences for improved user experience (@meauxt)
+* 49319331ba324762a77c63052937e538d8374d9f: Merge pull request #940 from donetick/notificaiton-enhance-approvals (@meauxt)
+* 36ba835a57355ff669b1688ca3af169f0a81a84b: Merge pull request #941 from donetick/notificaiton-enhance-approvals-remove-priority (@meauxt)
+
 ## 0.1.84-beta.5:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
