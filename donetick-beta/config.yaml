@@ -66,6 +66,12 @@ schema:
   storage_secret_key: "password?"
   storage_endpoint: "str?"
   storage_path_style: "bool?"
+  storage_max_file_size: "int(1,)?"
+  storage_max_user_storage: "int(1,)?"
+  storage_public_host: "str?"
+  storage_public_read: "bool?"
+  storage_public_bucket_name: "str?"
+  storage_public_bucket_host: "str?"
   # JWT settings
   jwt_secret: "str?"
   jwt_session_time: "str?"

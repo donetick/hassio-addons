@@ -47,7 +47,7 @@ if bashio::config.has_value 'storage_type'; then
 fi
 case "${storage_type}" in
     auto) ;; # Keep the backend's existing provider (S3 when unconfigured).
-    s3) export DT_STORAGE_STORAGE_TYPE="remote" ;;
+    s3) export DT_STORAGE_STORAGE_TYPE="s3" ;;
     local)
         export DT_STORAGE_STORAGE_TYPE="local"
         # An inherited S3 prefix must not become a relative local directory.
@@ -57,7 +57,7 @@ case "${storage_type}" in
 esac
 
 # Blank fields preserve backend values. An explicit false overrides path-style addressing.
-for option in base_path bucket_name region access_key secret_key endpoint path_style; do
+for option in base_path bucket_name region access_key secret_key endpoint path_style max_file_size max_user_storage public_host public_read public_bucket_name public_bucket_host; do
     if bashio::config.has_value "storage_${option}"; then
         export "DT_STORAGE_${option^^}=$(bashio::config "storage_${option}")"
     fi

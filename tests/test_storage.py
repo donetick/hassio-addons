@@ -73,10 +73,13 @@ mkdir() {
                     self.assertEqual(result.mkdir_args, [])
 
     def test_auto_preserves_all_inherited_s3_settings(self):
-        inherited = dict(DT_STORAGE_STORAGE_TYPE="remote", DT_STORAGE_BASE_PATH="existing",
+        inherited = dict(DT_STORAGE_STORAGE_TYPE="s3", DT_STORAGE_BASE_PATH="existing",
                          DT_STORAGE_BUCKET_NAME="photos", DT_STORAGE_REGION="eu-west-1",
                          DT_STORAGE_ACCESS_KEY="access", DT_STORAGE_SECRET_KEY="secret",
-                         DT_STORAGE_ENDPOINT="https://storage.example.invalid", DT_STORAGE_PATH_STYLE="true")
+                         DT_STORAGE_ENDPOINT="https://storage.example.invalid", DT_STORAGE_PATH_STYLE="true",
+                         DT_STORAGE_MAX_FILE_SIZE="5242880", DT_STORAGE_MAX_USER_STORAGE="52428800",
+                         DT_STORAGE_PUBLIC_HOST="signer.example.invalid", DT_STORAGE_PUBLIC_READ="true",
+                         DT_STORAGE_PUBLIC_BUCKET_NAME="public-photos", DT_STORAGE_PUBLIC_BUCKET_HOST="photos.example.invalid")
         for addon in ADDONS:
             for options in ({}, {"storage_type": "auto"}):
                 self.assertEqual(self.config(self.run_storage(addon, options, inherited)), inherited)
@@ -86,12 +89,15 @@ mkdir() {
         options = dict(storage_type="s3", storage_base_path="assets", storage_path_style=False,
                        storage_region="eu-west-1", storage_access_key="access key",
                        storage_secret_key="secret $key `literal` with spaces",
-                       storage_endpoint="https://storage.example.invalid", storage_bucket_name="photos")
+                       storage_endpoint="https://storage.example.invalid", storage_bucket_name="photos",
+                       storage_max_file_size=10485760, storage_max_user_storage=104857600,
+                       storage_public_host="signer.example.invalid", storage_public_read=False,
+                       storage_public_bucket_name="public-photos", storage_public_bucket_host="photos.example.invalid")
         for addon in ADDONS:
             result = self.run_storage(addon, options, inherited)
-            expected = {"DT_" + key.upper(): str(value).lower() if isinstance(value, bool) else value
+            expected = {"DT_" + key.upper(): str(value).lower() if isinstance(value, bool) else str(value)
                         for key, value in options.items() if key != "storage_type"}
-            expected["DT_STORAGE_STORAGE_TYPE"] = "remote"
+            expected["DT_STORAGE_STORAGE_TYPE"] = "s3"
             self.assertEqual(self.config(result), expected)
             self.assertEqual(result.stderr, "")
 
@@ -103,7 +109,7 @@ mkdir() {
     def test_s3_does_not_require_credentials_in_addon_options(self):
         for addon in ADDONS:
             result = self.run_storage(addon, {"storage_type": "s3"})
-            self.assertEqual(self.config(result), {"DT_STORAGE_STORAGE_TYPE": "remote"})
+            self.assertEqual(self.config(result), {"DT_STORAGE_STORAGE_TYPE": "s3"})
             self.assertEqual(result.stderr, "")
 
     def test_null_options_do_not_override_backend(self):
@@ -118,6 +124,29 @@ mkdir() {
         for addon in ADDONS:
             result = self.run_storage(addon, {"storage_base_path": "", "storage_endpoint": "", "storage_region": ""}, inherited)
             self.assertEqual(self.config(result), inherited)
+
+    def test_blank_and_null_limits_and_public_settings_preserve_backend(self):
+        inherited = dict(DT_STORAGE_MAX_FILE_SIZE="5242880", DT_STORAGE_MAX_USER_STORAGE="52428800",
+                         DT_STORAGE_PUBLIC_HOST="signer.example.invalid", DT_STORAGE_PUBLIC_READ="true",
+                         DT_STORAGE_PUBLIC_BUCKET_NAME="photos", DT_STORAGE_PUBLIC_BUCKET_HOST="photos.example.invalid")
+        for addon in ADDONS:
+            for value in ("", None):
+                options = {key.removeprefix("DT_").lower(): value for key in inherited}
+                self.assertEqual(self.config(self.run_storage(addon, options, inherited)), inherited)
+
+    def test_explicit_false_disables_inherited_public_read(self):
+        for addon in ADDONS:
+            result = self.run_storage(addon, {"storage_public_read": False}, {"DT_STORAGE_PUBLIC_READ": "true"})
+            self.assertEqual(self.config(result), {"DT_STORAGE_PUBLIC_READ": "false"})
+
+    def test_local_storage_receives_attachment_limits(self):
+        for addon in ADDONS:
+            result = self.run_storage(addon, {"storage_type": "local", "storage_max_file_size": 10485760,
+                                              "storage_max_user_storage": 104857600})
+            actual = self.config(result)
+            self.assertEqual(actual["DT_STORAGE_STORAGE_TYPE"], "local")
+            self.assertEqual(actual["DT_STORAGE_MAX_FILE_SIZE"], "10485760")
+            self.assertEqual(actual["DT_STORAGE_MAX_USER_STORAGE"], "104857600")
 
     def test_switching_to_local_does_not_reuse_an_s3_prefix(self):
         for addon in ADDONS:
@@ -167,6 +196,11 @@ mkdir() {
             self.assertEqual(defaults, {"storage_type": "auto"})
             self.assertEqual(config["schema"]["storage_type"], "list(auto|s3|local)?")
             self.assertEqual(config["schema"]["storage_secret_key"], "password?")
+            self.assertEqual(config["schema"]["storage_max_file_size"], "int(1,)?")
+            self.assertEqual(config["schema"]["storage_max_user_storage"], "int(1,)?")
+            self.assertEqual(config["schema"]["storage_public_read"], "bool?")
+            for key in ("public_host", "public_bucket_name", "public_bucket_host"):
+                self.assertEqual(config["schema"]["storage_" + key], "str?")
             fields = {k for k in config["schema"] if k.startswith("storage_")}
             self.assertEqual(fields, set(translations))
             self.assertEqual(self.config(self.run_storage(addon, defaults)), {})

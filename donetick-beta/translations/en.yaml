@@ -23,3 +23,21 @@ configuration:
   storage_path_style:
     name: S3 path-style addressing
     description: Enable for services requiring endpoint/bucket/key addressing. Omit to preserve backend configuration; false explicitly disables it. Requires a backend release supporting storage.path_style.
+  storage_max_file_size:
+    name: Maximum attachment size (bytes)
+    description: Positive size limit for a single attachment. For example, 10485760 is 10 MiB. Omit to preserve backend configuration; a zero backend limit can block uploads.
+  storage_max_user_storage:
+    name: Storage quota (bytes)
+    description: Positive storage quota enforced by the backend. For example, 104857600 is 100 MiB. Omit to preserve backend configuration; a zero backend quota can block uploads.
+  storage_public_host:
+    name: S3 signer host override
+    description: Optional host without scheme for the URL signer. Does not configure the profile photo CDN host or make a bucket public. Omit to preserve backend configuration.
+  storage_public_read:
+    name: Unsigned S3 attachment URLs
+    description: Enable only if the bucket or prefix already allows anonymous reads. Does not set bucket permissions. Omit to preserve backend configuration; false explicitly disables unsigned attachment URLs.
+  storage_public_bucket_name:
+    name: Public asset bucket
+    description: Optional separate bucket for profile photos. Omit to preserve backend configuration; the backend falls back to the main bucket if none is configured.
+  storage_public_bucket_host:
+    name: Public profile asset host
+    description: HTTPS CDN or public bucket host without scheme or path for permanent profile photo URLs. The uploaded profile objects must allow anonymous reads. Without it, profile URLs are presigned and expire.

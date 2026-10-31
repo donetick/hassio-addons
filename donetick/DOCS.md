@@ -115,6 +115,35 @@ backend S3 prefix or endpoint, change that backend setting at its source.
 | `storage_secret_key` | omitted | S3 secret key. |
 | `storage_endpoint` | omitted | S3-compatible endpoint; blank preserves the backend endpoint (AWS S3 by default). |
 | `storage_path_style` | omitted | Enable for services requiring path-style addressing. Requires a backend version supporting `storage.path_style`. |
+| `storage_max_file_size` | omitted | Positive attachment size limit in bytes, e.g. `10485760` (10 MiB). |
+| `storage_max_user_storage` | omitted | Positive backend storage quota in bytes, e.g. `104857600` (100 MiB). |
+| `storage_public_host` | omitted | URL signer host override without scheme; distinct from the profile asset host. |
+| `storage_public_read` | omitted | Use unsigned attachment URLs only when the bucket/prefix already allows anonymous reads. |
+| `storage_public_bucket_name` | omitted | Separate bucket for public profile assets; otherwise the backend uses the main bucket. |
+| `storage_public_bucket_host` | omitted | HTTPS public profile asset/CDN host without scheme or path, e.g. `photos.home.example`. |
+
+Set positive limits when enabling uploads unless they are already configured in
+backend YAML/environment settings. These fields have no struct defaults: zero is
+not an unlimited allowance and can reject attachments. The examples below supply
+10 MiB per attachment and a 100 MiB storage quota. They do not change the backend's
+account/feature checks or how it accounts for usage. Keep quotas within the Go
+integer range on your architecture (at most 2147483647 bytes on 32-bit systems).
+
+#### Public profile URLs
+
+`storage_public_host` affects the general URL signer; it does not control
+`GetPublicURL` for profile photos. For permanent profile URLs, configure
+`storage_public_bucket_host` and, optionally, `storage_public_bucket_name` for a
+separate profile bucket. The host must serve the uploaded object keys over HTTPS
+and those objects must allow anonymous reads. These options do not change bucket
+permissions. Keep private attachments in the private bucket/prefix.
+
+Without a public bucket host, the backend returns presigned URLs from the public
+bucket if configured, or otherwise the main private bucket. Those URLs expire
+(currently after seven days); the add-on cannot make already stored presigned
+profile URLs permanent. `storage_public_read` controls unsigned attachment URLs
+and does not replace the public bucket host for profile URLs. Leave it unset or
+false when attachments should remain private.
 
 #### Keep production storage on your own network
 
@@ -130,6 +159,8 @@ storage_secret_key: YOUR_SECRET_KEY
 storage_endpoint: https://storage.home.example
 storage_base_path: assets
 storage_path_style: true
+storage_max_file_size: 10485760
+storage_max_user_storage: 104857600
 ```
 
 Use the region and addressing mode required by your service. The endpoint must be
@@ -145,6 +176,8 @@ setting up an S3 service:
 ```yaml
 storage_type: local
 storage_base_path: /data/uploads
+storage_max_file_size: 10485760
+storage_max_user_storage: 104857600
 ```
 
 Selecting `local` resets the upload directory to `/data/uploads` unless a nonempty
