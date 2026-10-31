@@ -2,6 +2,14 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.86-beta.1:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 0bda3b38cf3f75bb152e00f00d9bbec3de3b1f88: feat: add circle ID, privacy flag, and assignment strategy to chore details (@meauxt)
+* 9706cbd2e329b2f788074f61446ff67676654040: Merge pull request #944 from donetick/fix-permission-chore-details (@meauxt)
+
 ## 0.1.84-beta.6:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
