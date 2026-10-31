@@ -1,5 +1,68 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.85:
+## Changelog
+* 0bda3b38cf3f75bb152e00f00d9bbec3de3b1f88: feat: add circle ID, privacy flag, and assignment strategy to chore details (@meauxt)
+* 9706cbd2e329b2f788074f61446ff67676654040: Merge pull request #944 from donetick/fix-permission-chore-details (@meauxt)
+
+## 0.1.84:
+## Release Notes:
+
+This release is has a lot of quality of life improvments :like smarter notifications, better feedback when things fail,better representation on action and permissions.
+PLUS a lot of new features! We added initial support for project board/list views(, and sharing for labels and filters  plus the app got a share extension!( so now you can share a photo with donetick and create task with that as attachment!) , a project widget(for both of course IOS and Android). we also add supoprt for few themes now to pick a different colors that match your style!
+As always, bear with me if I miss something, will keep updating this over the next few days.
+
+- **Smart notifications**: notification profiles is a  per-user preferences and daily/weekly digest generation. Approval and redemption requests now go through a proper notification dispatcher, and you get notified on assignments and pending approvals too.
+
+- **Project board and list views**: projects now have board and list views, not just the one layout.( the list view has been something sitting and waiting for release for a while! so it finally make it! it early release so keep that in mind )
+
+- **Labels and filters get sharing + privacy**: labels and filters can now be shared or kept private, with per-recipient privacy respected in broadcasts.
+
+
+- **App side (frontend v1.2.56 → v1.2.62)**: a share extension so you can share into Donetick from other apps, a project widget, priority in the chore action menu plus offline sync improvements, a fix for fields bleeding on smaller screens like the iPhone 13, and the 1016 fixes batch.
+
+- **Home Assistant integration**: optional HA user mapping so the right person gets completion credit, opt-in reassignment to any circle member, fixed task creation attribution, `complete_task` now returns the history entry plus a `delete_history` option (@ChrisB85), calendar due dates fixed to the HA timezone, a round of small fixes (@csandbrink entity registry helper, the server's reason when it refuses a reassignment, frontend test in CI, HACS minimum raised), local brand assets (@frenck), and documented completion/reschedule services.
+
+## Special thanks:
+
+- @csandbrink for the HA completion-credit mapping, reassignment work, and small fixes
+- @ChrisB85 for the complete_task history entry and delete_history
+- @frenck for the brand assets
+- @torbenvanassche for wrangling the HA integration side
+- everyone who filed issues, tested betas, and helped shape this release. Thank you!
+
+## What's Changed
+
+Backend (`donetick/donetick`):
+
+- Notification improvement: FCM/bridge, join-request message format in https://github.com/donetick/donetick/pull/916
+- Digest notifications: profiles, preferences, daily/weekly digests in https://github.com/donetick/donetick/pull/919
+- Project board and list views in https://github.com/donetick/donetick/pull/924 and https://github.com/donetick/donetick/pull/927
+- Label/filter sharing + privacy (ACL) in https://github.com/donetick/donetick/pull/936
+- Notification dispatcher for approvals, assignments, redemptions in https://github.com/donetick/donetick/pull/940 and https://github.com/donetick/donetick/pull/941
+- 1028 fixes: don't notify yourself on assignment in https://github.com/donetick/donetick/pull/943
+- fix(circle): correct user_id selection in GetCircleUsers query (direct commit)
+
+App (`donetick/frontend`, v1.2.56 → v1.2.62):
+
+- 1016 fixes in https://github.com/donetick/frontend/pull/327
+- Share extension for the Donetick app in https://github.com/donetick/frontend/pull/330
+- ChoreActionMenu: priority + offline sync improvements in https://github.com/donetick/frontend/pull/331
+- Project widget in https://github.com/donetick/frontend/pull/332
+- Fix fields bleeding on smaller screens (iPhone 13) in https://github.com/donetick/frontend/pull/333
+
+Home Assistant (`donetick/donetick-hass-integration`, main since v0.1.83):
+
+- Docs: card completion and reschedule services by @csandbrink in https://github.com/donetick/donetick-hass-integration/pull/71
+- Completion credit for assigned/completed-by by @csandbrink in https://github.com/donetick/donetick-hass-integration/pull/72
+- Local brand assets by @frenck in https://github.com/donetick/donetick-hass-integration/pull/73
+- Opt-in reassignment to any circle member by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/74
+- HA user mapping for completion credit by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/75
+- Fix calendar due dates in the HA timezone by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/77
+- Integration small fixes by @csandbrink in https://github.com/donetick/donetick-hass-integration/pull/78
+- complete_task returns history entry + delete_history by @ChrisB85 in https://github.com/donetick/donetick-hass-integration/pull/80
+- Fix task creation attribution by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/81
+
 ## Unreleased
 
 - Expose optional S3-compatible storage settings while preserving existing backend configuration by default.
