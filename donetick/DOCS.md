@@ -84,6 +84,116 @@ NOTE - if `email_port` is not set, the server will not start.
 | email_port            | yes      | 587     | SMTP port for your email provider
 | email_appHost         | no       |         | Your DoneTick instance's URL (incl. http(s) and port)
 
+### Storage settings
+
+S3-compatible storage remains the recommended production provider. It can be
+hosted by another provider or run on your own network: self-hosting does not
+require AWS or sending photos to a cloud service. A separate storage project
+manages the files and persistence; DoneTick connects through its S3 API.
+
+The default `storage_type: auto` preserves existing backend configuration.
+It does not select local storage or provision a bucket. With no storage configured,
+DoneTick still starts, but uploads require storage setup and may return an error.
+Disabling upload controls and showing setup guidance requires a separate backend
+and frontend change; this add-on configuration does not implement that behavior.
+
+Change settings in the app's **Configuration** tab, save, and restart the app.
+Storage fields other than `storage_type` are optional and have no add-on defaults.
+Omitted or blank fields preserve backend YAML/environment settings. Nonempty fields
+override them, including `storage_path_style: false`. Remove the path-style option
+from the configuration YAML to restore its backend value. To clear an existing
+backend S3 prefix or endpoint, change that backend setting at its source.
+`storage_type: auto` preserves the provider but still applies other supplied fields.
+
+| Option | Default | Explanation |
+|--------|---------|-------------|
+| `storage_type` | `auto` | Preserve backend provider; `s3` explicitly selects S3; `local` explicitly selects development filesystem storage. |
+| `storage_base_path` | omitted | S3 object prefix or local directory. Blank preserves the S3 prefix; explicitly selecting local defaults to `/data/uploads`. |
+| `storage_bucket_name` | omitted | S3 bucket name. |
+| `storage_region` | omitted | Region required by the storage provider. |
+| `storage_access_key` | omitted | S3 access key. |
+| `storage_secret_key` | omitted | S3 secret key. |
+| `storage_endpoint` | omitted | S3-compatible endpoint; blank preserves the backend endpoint (AWS S3 by default). |
+| `storage_path_style` | omitted | Enable for services requiring path-style addressing. Requires a backend version supporting `storage.path_style`. |
+| `storage_max_file_size` | omitted | Positive attachment size limit in bytes, e.g. `10485760` (10 MiB). |
+| `storage_max_user_storage` | omitted | Positive backend storage quota in bytes, e.g. `104857600` (100 MiB). |
+| `storage_public_host` | omitted | URL signer host override without scheme; distinct from the profile asset host. |
+| `storage_public_read` | omitted | Use unsigned attachment URLs only when the bucket/prefix already allows anonymous reads. |
+| `storage_public_bucket_name` | omitted | Separate bucket for public profile assets; otherwise the backend uses the main bucket. |
+| `storage_public_bucket_host` | omitted | HTTPS public profile asset/CDN host without scheme or path, e.g. `photos.home.example`. |
+
+Set positive limits when enabling uploads unless they are already configured in
+backend YAML/environment settings. These fields have no struct defaults: zero is
+not an unlimited allowance and can reject attachments. The examples below supply
+10 MiB per attachment and a 100 MiB storage quota. They do not change the backend's
+account/feature checks or how it accounts for usage. Keep quotas within the Go
+integer range on your architecture (at most 2147483647 bytes on 32-bit systems).
+
+#### Public profile URLs
+
+`storage_public_host` affects the general URL signer; it does not control
+`GetPublicURL` for profile photos. For permanent profile URLs, configure
+`storage_public_bucket_host` and, optionally, `storage_public_bucket_name` for a
+separate profile bucket. The host must serve the uploaded object keys over HTTPS
+and those objects must allow anonymous reads. These options do not change bucket
+permissions. Keep private attachments in the private bucket/prefix.
+
+Without a public bucket host, the backend returns presigned URLs from the public
+bucket if configured, or otherwise the main private bucket. Those URLs expire
+(currently after seven days); the add-on cannot make already stored presigned
+profile URLs permanent. `storage_public_read` controls unsigned attachment URLs
+and does not replace the public bucket host for profile URLs. Leave it unset or
+false when attachments should remain private.
+
+#### Keep production storage on your own network
+
+Run an S3-compatible service separately on your server or NAS, create a bucket and
+credentials, then configure DoneTick, for example:
+
+```yaml
+storage_type: s3
+storage_bucket_name: donetick
+storage_region: us-east-1
+storage_access_key: YOUR_ACCESS_KEY
+storage_secret_key: YOUR_SECRET_KEY
+storage_endpoint: https://storage.home.example
+storage_base_path: assets
+storage_path_style: true
+storage_max_file_size: 10485760
+storage_max_user_storage: 104857600
+```
+
+Use the region and addressing mode required by your service. The endpoint must be
+reachable from the add-on and from browsers/devices displaying photos because S3
+asset URLs can point directly to that endpoint. Back up the bucket using the
+storage service's tools. See the [backend storage guide](https://docs.donetick.com/advance-settings/storage-setup/).
+
+#### Local filesystem storage (development / personal opt-in)
+
+The backend already provides filesystem storage. To use it explicitly without
+setting up an S3 service:
+
+```yaml
+storage_type: local
+storage_base_path: /data/uploads
+storage_max_file_size: 10485760
+storage_max_user_storage: 104857600
+```
+
+Selecting `local` resets the upload directory to `/data/uploads` unless a nonempty
+`storage_base_path` option is supplied, so an inherited S3 prefix cannot become a
+relative filesystem path. This keeps uploads in the app's persistent data directory across restarts and app
+updates, and logs a warning at startup. Upstream recommends local storage only
+for development; this option does not change that support policy or make it the
+production default. Keep custom paths under `/data` and include uploads in backups
+alongside the database. Persistence across updates is not a substitute for backups.
+
+Changing providers, S3 prefixes, or local directories does not migrate existing
+uploads or rewrite stored image references. Back up first and migrate separately.
+Installations already using the earlier revision of this PR should explicitly
+keep `storage_type: local` and `/data/uploads` to continue using their local files.
+The same storage options are available in the beta app.
+
 ## Support
 For issues, feature requests, or questions, please open an issue on the [GitHub repository](https://github.com/donetick/hassio-addons/issues).
 

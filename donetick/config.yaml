@@ -25,6 +25,8 @@ image: "ghcr.io/donetick/{arch}-hassio-addons"
 
 
 options:
+  # Preserve existing storage configuration; local storage requires explicit opt-in.
+  storage_type: auto
   jwt_secret: "change_this_to_a_secure_random_string_32_characters_long"
   jwt_session_time: "168h"
   jwt_max_refresh: "168h"
@@ -54,6 +56,21 @@ options:
 
 
 schema:
+  # Storage settings
+  storage_type: "list(auto|s3|local)?"
+  storage_base_path: "str?"
+  storage_bucket_name: "str?"
+  storage_region: "str?"
+  storage_access_key: "password?"
+  storage_secret_key: "password?"
+  storage_endpoint: "str?"
+  storage_path_style: "bool?"
+  storage_max_file_size: "int(1,)?"
+  storage_max_user_storage: "int(1,)?"
+  storage_public_host: "str?"
+  storage_public_read: "bool?"
+  storage_public_bucket_name: "str?"
+  storage_public_bucket_host: "str?"
   # JWT settings
   jwt_secret: "str?"
   jwt_session_time: "str?"

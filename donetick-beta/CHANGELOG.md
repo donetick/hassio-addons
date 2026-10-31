@@ -2,6 +2,13 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## Unreleased
+
+- Expose optional S3-compatible storage settings while preserving existing backend configuration by default.
+- Export the S3 provider as `s3` and expose attachment limits, quota, and public asset settings.
+- Document self-hosted S3 services and explicit local filesystem opt-in for development, with a startup warning.
+- Fix `disable_signup` so enabling it blocks new account registration.
+
 ## 0.1.86-beta.1:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
@@ -52,10 +59,6 @@
 * b09cbf813c296e3b556d010f95921f525f5d47a9: Merge pull request #913 from donetick/reduce-account-deletion-restriction (@meauxt)
 * ee533c414edee91be16429ebf8756ad0a5697e9d: Revert "fix(account): remove password requirement for account deletion" (@meauxt)
 * 663e7fdf44a2ac949edb133858fe86efd10aa706: Merge pull request #914 from donetick/revert-913-reduce-account-deletion-restriction (@meauxt)
-
-## Unreleased
-
-- Fix `disable_signup` so enabling it blocks new account registration.
 
 ## 0.1.84-beta.1:
 > [!WARNING]

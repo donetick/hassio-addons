@@ -8,11 +8,11 @@
 ## 0.1.84:
 ## Release Notes:
 
-This release is has a lot of quality of life improvments :like smarter notifications, better feedback when things fail,better representation on action and permissions. 
+This release is has a lot of quality of life improvments :like smarter notifications, better feedback when things fail,better representation on action and permissions.
 PLUS a lot of new features! We added initial support for project board/list views(, and sharing for labels and filters  plus the app got a share extension!( so now you can share a photo with donetick and create task with that as attachment!) , a project widget(for both of course IOS and Android). we also add supoprt for few themes now to pick a different colors that match your style!
 As always, bear with me if I miss something, will keep updating this over the next few days.
 
-- **Smart notifications**: notification profiles is a  per-user preferences and daily/weekly digest generation. Approval and redemption requests now go through a proper notification dispatcher, and you get notified on assignments and pending approvals too. 
+- **Smart notifications**: notification profiles is a  per-user preferences and daily/weekly digest generation. Approval and redemption requests now go through a proper notification dispatcher, and you get notified on assignments and pending approvals too.
 
 - **Project board and list views**: projects now have board and list views, not just the one layout.( the list view has been something sitting and waiting for release for a while! so it finally make it! it early release so keep that in mind )
 
@@ -65,6 +65,9 @@ Home Assistant (`donetick/donetick-hass-integration`, main since v0.1.83):
 
 ## Unreleased
 
+- Expose optional S3-compatible storage settings while preserving existing backend configuration by default.
+- Export the S3 provider as `s3` and expose attachment limits, quota, and public asset settings.
+- Document self-hosted S3 services and explicit local filesystem opt-in for development, with a startup warning.
 - Fix `disable_signup` so enabling it blocks new account registration.
 
 ## 0.1.83:

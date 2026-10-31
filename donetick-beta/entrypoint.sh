@@ -40,6 +40,38 @@ export DT_SCHEDULER_JOBS_DUE_JOB=$(bashio::config 'scheduler_jobs_due_job')
 export DT_SCHEDULER_JOBS_OVERDUE_JOB=$(bashio::config 'scheduler_jobs_overdue_job')
 export DT_SCHEDULER_JOBS_PRE_DUE_JOB=$(bashio::config 'scheduler_jobs_pre_due_job')
 
+# Storage settings. Unset options preserve backend YAML and environment settings.
+storage_type="auto"
+if bashio::config.has_value 'storage_type'; then
+    storage_type="$(bashio::config 'storage_type')"
+fi
+case "${storage_type}" in
+    auto) ;; # Keep the backend's existing provider (S3 when unconfigured).
+    s3) export DT_STORAGE_STORAGE_TYPE="s3" ;;
+    local)
+        export DT_STORAGE_STORAGE_TYPE="local"
+        # An inherited S3 prefix must not become a relative local directory.
+        export DT_STORAGE_BASE_PATH="/data/uploads"
+        ;;
+    *) bashio::exit.nok "Unsupported storage_type. Choose auto, s3 or local." ;;
+esac
+
+# Blank fields preserve backend values. An explicit false overrides path-style addressing.
+for option in base_path bucket_name region access_key secret_key endpoint path_style max_file_size max_user_storage public_host public_read public_bucket_name public_bucket_host; do
+    if bashio::config.has_value "storage_${option}"; then
+        export "DT_STORAGE_${option^^}=$(bashio::config "storage_${option}")"
+    fi
+done
+
+if [[ "${DT_STORAGE_STORAGE_TYPE:-}" == "local" ]]; then
+    export DT_STORAGE_BASE_PATH="${DT_STORAGE_BASE_PATH:-/data/uploads}"
+    bashio::log.warning "Local filesystem storage is intended for development and is not recommended for production. Back up uploads separately from the database."
+    mkdir -p -- "${DT_STORAGE_BASE_PATH}" || bashio::exit.nok "Cannot create the local upload directory."
+fi
+# Do not reject missing S3 options here: they may be supplied by backend YAML.
+# Upload availability and configuration validation belong in the backend.
+# End storage settings.
+
 #
 # Start donetick backend and save PID
 bashio::log.info "Starting Donetick Beta backend..."
