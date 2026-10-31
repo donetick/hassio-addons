@@ -1,5 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.85:
+## Changelog
+* 0bda3b38cf3f75bb152e00f00d9bbec3de3b1f88: feat: add circle ID, privacy flag, and assignment strategy to chore details (@meauxt)
+* 9706cbd2e329b2f788074f61446ff67676654040: Merge pull request #944 from donetick/fix-permission-chore-details (@meauxt)
+
 ## 0.1.84:
 ## Release Notes:
 
