@@ -65,6 +65,7 @@ Home Assistant (`donetick/donetick-hass-integration`, main since v0.1.83):
 
 ## Unreleased
 
+- Default the attachment size limit to 10 MiB (10485760 bytes).
 - Expose optional S3-compatible storage settings while preserving existing backend configuration by default.
 - Export the S3 provider as `s3` and expose attachment limits, quota, and public asset settings.
 - Document self-hosted S3 services and explicit local filesystem opt-in for development, with a startup warning.

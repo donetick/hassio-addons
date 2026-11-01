@@ -40,7 +40,7 @@ export DT_SCHEDULER_JOBS_DUE_JOB=$(bashio::config 'scheduler_jobs_due_job')
 export DT_SCHEDULER_JOBS_OVERDUE_JOB=$(bashio::config 'scheduler_jobs_overdue_job')
 export DT_SCHEDULER_JOBS_PRE_DUE_JOB=$(bashio::config 'scheduler_jobs_pre_due_job')
 
-# Storage settings. Unset options preserve backend YAML and environment settings.
+# Storage settings. Unset options preserve backend values except the file-size fallback.
 storage_type="auto"
 if bashio::config.has_value 'storage_type'; then
     storage_type="$(bashio::config 'storage_type')"
@@ -62,6 +62,9 @@ for option in base_path bucket_name region access_key secret_key endpoint path_s
         export "DT_STORAGE_${option^^}=$(bashio::config "storage_${option}")"
     fi
 done
+
+# Supply a 10 MiB limit for older configurations without this add-on option.
+export DT_STORAGE_MAX_FILE_SIZE="${DT_STORAGE_MAX_FILE_SIZE:-10485760}"
 
 if [[ "${DT_STORAGE_STORAGE_TYPE:-}" == "local" ]]; then
     export DT_STORAGE_BASE_PATH="${DT_STORAGE_BASE_PATH:-/data/uploads}"

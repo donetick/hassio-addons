@@ -63,14 +63,27 @@ mkdir() {
         self.assertEqual(result.returncode, 0, result.stderr)
         return json.loads(result.stdout)
 
-    def test_missing_auto_empty_and_null_provider_preserve_backend_defaults(self):
+    def test_missing_auto_empty_and_null_provider_receive_default_file_limit(self):
         for addon in ADDONS:
             for options in ({}, {"storage_type": "auto"}, {"storage_type": ""}, {"storage_type": None}):
                 with self.subTest(addon=addon, options=options):
                     result = self.run_storage(addon, options)
-                    self.assertEqual(self.config(result), {})
+                    self.assertEqual(self.config(result), {"DT_STORAGE_MAX_FILE_SIZE": "10485760"})
                     self.assertEqual(result.stderr, "")
                     self.assertEqual(result.mkdir_args, [])
+
+    def test_missing_blank_and_null_file_limits_default_to_10_mib(self):
+        for addon in ADDONS:
+            for options in ({}, {"storage_max_file_size": ""}, {"storage_max_file_size": None}):
+                with self.subTest(addon=addon, options=options):
+                    self.assertEqual(self.config(self.run_storage(addon, options)),
+                                     {"DT_STORAGE_MAX_FILE_SIZE": "10485760"})
+
+    def test_custom_file_limit_overrides_inherited_limit(self):
+        for addon in ADDONS:
+            result = self.run_storage(addon, {"storage_max_file_size": 20971520},
+                                      {"DT_STORAGE_MAX_FILE_SIZE": "5242880"})
+            self.assertEqual(self.config(result), {"DT_STORAGE_MAX_FILE_SIZE": "20971520"})
 
     def test_auto_preserves_all_inherited_s3_settings(self):
         inherited = dict(DT_STORAGE_STORAGE_TYPE="s3", DT_STORAGE_BASE_PATH="existing",
@@ -104,26 +117,26 @@ mkdir() {
     def test_auto_allows_individual_setting_overrides(self):
         for addon in ADDONS:
             result = self.run_storage(addon, {"storage_region": "new"}, {"DT_STORAGE_REGION": "old"})
-            self.assertEqual(self.config(result), {"DT_STORAGE_REGION": "new"})
+            self.assertEqual(self.config(result), {"DT_STORAGE_REGION": "new", "DT_STORAGE_MAX_FILE_SIZE": "10485760"})
 
     def test_s3_does_not_require_credentials_in_addon_options(self):
         for addon in ADDONS:
             result = self.run_storage(addon, {"storage_type": "s3"})
-            self.assertEqual(self.config(result), {"DT_STORAGE_STORAGE_TYPE": "s3"})
+            self.assertEqual(self.config(result), {"DT_STORAGE_STORAGE_TYPE": "s3", "DT_STORAGE_MAX_FILE_SIZE": "10485760"})
             self.assertEqual(result.stderr, "")
 
     def test_null_options_do_not_override_backend(self):
         for addon in ADDONS:
             inherited = {"DT_STORAGE_PATH_STYLE": "true", "DT_STORAGE_REGION": "existing"}
             result = self.run_storage(addon, {"storage_path_style": None, "storage_region": None}, inherited)
-            self.assertEqual(self.config(result), inherited)
+            self.assertEqual(self.config(result), {"DT_STORAGE_MAX_FILE_SIZE": "10485760", **inherited})
 
     def test_blank_fields_preserve_existing_s3_values(self):
         inherited = {"DT_STORAGE_BASE_PATH": "assets", "DT_STORAGE_ENDPOINT": "https://existing.invalid",
                      "DT_STORAGE_REGION": "existing"}
         for addon in ADDONS:
             result = self.run_storage(addon, {"storage_base_path": "", "storage_endpoint": "", "storage_region": ""}, inherited)
-            self.assertEqual(self.config(result), inherited)
+            self.assertEqual(self.config(result), {"DT_STORAGE_MAX_FILE_SIZE": "10485760", **inherited})
 
     def test_blank_and_null_limits_and_public_settings_preserve_backend(self):
         inherited = dict(DT_STORAGE_MAX_FILE_SIZE="5242880", DT_STORAGE_MAX_USER_STORAGE="52428800",
@@ -137,7 +150,7 @@ mkdir() {
     def test_explicit_false_disables_inherited_public_read(self):
         for addon in ADDONS:
             result = self.run_storage(addon, {"storage_public_read": False}, {"DT_STORAGE_PUBLIC_READ": "true"})
-            self.assertEqual(self.config(result), {"DT_STORAGE_PUBLIC_READ": "false"})
+            self.assertEqual(self.config(result), {"DT_STORAGE_PUBLIC_READ": "false", "DT_STORAGE_MAX_FILE_SIZE": "10485760"})
 
     def test_local_storage_receives_attachment_limits(self):
         for addon in ADDONS:
@@ -157,7 +170,7 @@ mkdir() {
     def test_explicit_local_defaults_to_persistent_directory_with_warning(self):
         for addon in ADDONS:
             result = self.run_storage(addon, {"storage_type": "local"})
-            self.assertEqual(self.config(result), {"DT_STORAGE_STORAGE_TYPE": "local", "DT_STORAGE_BASE_PATH": "/data/uploads"})
+            self.assertEqual(self.config(result), {"DT_STORAGE_STORAGE_TYPE": "local", "DT_STORAGE_BASE_PATH": "/data/uploads", "DT_STORAGE_MAX_FILE_SIZE": "10485760"})
             self.assertEqual(result.mkdir_args, ["-p", "--", "/data/uploads"])
             self.assertIn("not recommended for production", result.stderr)
 
@@ -173,7 +186,7 @@ mkdir() {
         with tempfile.TemporaryDirectory(dir=ROOT) as directory:
             inherited = {"DT_STORAGE_STORAGE_TYPE": "local", "DT_STORAGE_BASE_PATH": Path(directory).as_posix()}
             for addon in ADDONS:
-                self.assertEqual(self.config(self.run_storage(addon, {}, inherited)), inherited)
+                self.assertEqual(self.config(self.run_storage(addon, {}, inherited)), {"DT_STORAGE_MAX_FILE_SIZE": "10485760", **inherited})
 
     def test_local_directory_creation_failure_stops_startup(self):
         for addon in ADDONS:
@@ -193,7 +206,7 @@ mkdir() {
             config = yaml.safe_load((ROOT / addon / "config.yaml").read_text())
             translations = yaml.safe_load((ROOT / addon / "translations/en.yaml").read_text())["configuration"]
             defaults = {k: v for k, v in config["options"].items() if k.startswith("storage_")}
-            self.assertEqual(defaults, {"storage_type": "auto"})
+            self.assertEqual(defaults, {"storage_type": "auto", "storage_max_file_size": 10485760})
             self.assertEqual(config["schema"]["storage_type"], "list(auto|s3|local)?")
             self.assertEqual(config["schema"]["storage_secret_key"], "password?")
             self.assertEqual(config["schema"]["storage_max_file_size"], "int(1,)?")
@@ -203,7 +216,7 @@ mkdir() {
                 self.assertEqual(config["schema"]["storage_" + key], "str?")
             fields = {k for k in config["schema"] if k.startswith("storage_")}
             self.assertEqual(fields, set(translations))
-            self.assertEqual(self.config(self.run_storage(addon, defaults)), {})
+            self.assertEqual(self.config(self.run_storage(addon, defaults)), {"DT_STORAGE_MAX_FILE_SIZE": "10485760"})
             subprocess.run([BASH, "-n", str(ROOT / addon / "entrypoint.sh")], check=True)
 
 
