@@ -2,6 +2,14 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.86-beta.2:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 07d18545dc3e2d12f7f3ec80055d3e74ef563223: feat: add timezone field to sign-up request and validate input (@meauxt)
+* e247327abc93a094f120a899f67c82a8a8bd175a: Merge pull request #947 from donetick/1031-fixes (@meauxt)
+
 ## 0.1.86-beta.1:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
