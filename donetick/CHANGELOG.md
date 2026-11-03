@@ -1,5 +1,11 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.86:
+## Changelog
+* 489161f33866d0434866d05ce5e2c6c672644b54: implement bulk creation of chores with validation and response handling (@meauxt)
+* 12d8159783b1cc937ac50e00d5c4b6273b51dc9a: feat: enhance security for asset and user image handling to prevent path traversal (@meauxt)
+* ebfb340d7bd4e2e009d6f2f9ad073868acaf6412: Merge pull request #953 from donetick/1101-fixes (@meauxt)
+
 ## 0.1.85:
 ## Changelog
 * 0bda3b38cf3f75bb152e00f00d9bbec3de3b1f88: feat: add circle ID, privacy flag, and assignment strategy to chore details (@meauxt)
