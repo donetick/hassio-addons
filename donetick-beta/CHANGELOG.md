@@ -2,6 +2,15 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.87-beta.1:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 489161f33866d0434866d05ce5e2c6c672644b54: implement bulk creation of chores with validation and response handling (@meauxt)
+* 12d8159783b1cc937ac50e00d5c4b6273b51dc9a: feat: enhance security for asset and user image handling to prevent path traversal (@meauxt)
+* ebfb340d7bd4e2e009d6f2f9ad073868acaf6412: Merge pull request #953 from donetick/1101-fixes (@meauxt)
+
 ## 0.1.86-beta.2:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
