@@ -2,6 +2,16 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.87-beta.2:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* cc83bc0806e78b035d9e6401b662ccce4c621fcc: fix: Ending space causing docker run command to fail (@Duc-LLR)
+* 5f906d8033e5b2281abc4781a8ce858c74ba607e: fix: keep "always" chores active after approval or skip (Claude Opus 5.5 <noreply@anthropic.com>)
+* bb57aa30cff369cff872c2907144fb759b1d696a: Merge pull request #962 from hoge6b01/fix/always-chore-approve-skip (@meauxt)
+* f94246e0198d1a480214903d436dc256ebb44b44: Merge pull request #957 from Duc-LLR/fix/docker-run-cmd (@meauxt)
+
 ## 0.1.87-beta.1:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
