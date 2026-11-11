@@ -17,10 +17,18 @@ map:
 environment:
   DT_SQLITE_PATH: /data/donetick.db
   DT_ENV: selfhosted
+  # Serve the UI under the path prefix Home Assistant ingress sends.
+  DT_SERVER_BASE_PATH_HEADER: X-Ingress-Path
+ingress: true
+ingress_port: 2021
+panel_icon: mdi:checkbox-marked-circle-outline
+panel_title: Donetick Beta
+panel_admin: false
+# 2021 stays published for the mobile apps.
+# Set it to blank in the app's Network settings if you only use the sidebar and the integration.
 ports:
   80/tcp: 8006
   2021/tcp: 2022
-webui: http://[HOST]:[PORT:2022]
 image: "ghcr.io/donetick/{arch}-hassio-addons-beta"
 
 

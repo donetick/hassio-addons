@@ -28,6 +28,17 @@ Manual instructions:
 1. Open the Web UI.
 1. Create the first user account
 
+## Home Assistant sidebar (ingress)
+
+Donetick runs via ingress so it can be opened within the Home Assistant UI without exposing an additional port.
+Turn on **Show in sidebar** on the app's Info page to make it easier to access.
+
+You still sign in to Donetick once per browser; the session is kept.
+
+Port 2021 remains published for the Donetick mobile app.
+The Donetick Home Assistant integration should use the internal Docker hostname and port 2021. (`http://<app hostname>:2021`)
+The hostname is shown on the app's Info page and should look like `<repo hash>-Donetick`. (e.g. `2c57906a-Donetick`)
+
 ## Configuration
 ```
 telegram_token: ""
