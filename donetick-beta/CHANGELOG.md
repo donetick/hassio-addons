@@ -2,6 +2,26 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.87-beta.3:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 0cd0615f7e80ed65326ca6a7c9371ca450060bab: fix(storage): delete S3 objects at the key they were saved under (@pcbeingused333)
+* c9c0eacf503de5b4a1f81567119c5cd7e2faee40: fix(chore): do not panic completing a chore with a window but no due date (@pcbeingused333)
+* f6d4acebeb84e3c3792911ac7e509010324762f9: fix: update RevenueCat event structure and improve subscription handling (@meauxt)
+* 724b8bdf5f2321cf7c4384c9ea125341f819d995: fix: enhance error logging for user retrieval in RevenueCat webhook handlers (@meauxt)
+* 6f8e8266fb34f9f5ecb4c803a30cc43641ba993a: fix: implement GetSubscription method and enhance webhook subscription expiry handling (@meauxt)
+* 6f535d17c9f0332345f41b603e6825fdcebc563f: fix: implement TransferRevenueCatSubscriptions and enhance webhook event handling (@meauxt)
+* 897e79c036a0adc0f8d83aeb49d3cdacae52ff81: Merge pull request #909 from pcbeingused333/fix/s3-delete-key-separator (@meauxt)
+* f703de20465326775f7a8e6dd72d08ca2bcf375f: Merge pull request #973 from donetick/fix-renewal-issue (@meauxt)
+* ef8e55502ba6690115bcceff6213868aec4b7271: fix(storage): route public-object deletes to the public bucket (@meauxt)
+* b9bea92d686e76b32ba747d415342c913b14d0e0: fix(user): enhance profile photo management and cleanup for S3 URLs (@meauxt)
+* 2766e4930a654ad992904adfe70150a19282dd54: Merge pull request #974 from donetick/s3-fix-deletion-public-private (@meauxt)
+* 408015cdd58972516074640c04693ab03544c060: Merge pull request #942 from pcbeingused333/fix/completion-window-nil-due-date (@meauxt)
+* e518c9a567d50e9d85c3a65725ad6fb20d374311: correct spellign and fix linting (@meauxt)
+* 582841abed458ebb4d3579e0355fc1d154fddf28: Merge pull request #975 from donetick/lint-fix-and-spelling (@meauxt)
+
 ## 0.1.87-beta.2:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
