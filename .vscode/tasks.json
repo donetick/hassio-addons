@@ -16,9 +16,23 @@
       "problemMatcher": []
     },
     {
-      "label": "Start Addon",
+      "label": "Install App",
       "type": "shell",
-      "command": "ha addons stop \"local_${input:addonName}\"; ha addons start \"local_${input:addonName}\"; docker logs --follow \"addon_local_${input:addonName}\"",
+      "command": "bash .vscode/dev-app.sh \"${input:appFolder}\" install",
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Start App",
+      "type": "shell",
+      "command": "bash .vscode/dev-app.sh \"${input:appFolder}\" start",
       "group": {
         "kind": "test",
         "isDefault": false
@@ -33,9 +47,23 @@
       }
     },
     {
-      "label": "Rebuild and Start Addon",
+      "label": "Rebuild and Start App",
       "type": "shell",
-      "command": "ha addons rebuild \"local_${input:addonName}\"; ha addons start \"local_${input:addonName}\"; docker logs --follow \"addon_local_${input:addonName}\"",
+      "command": "bash .vscode/dev-app.sh \"${input:appFolder}\" rebuild",
+      "group": {
+        "kind": "test",
+        "isDefault": false
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Uninstall App",
+      "type": "shell",
+      "command": "bash .vscode/dev-app.sh \"${input:appFolder}\" uninstall",
       "group": {
         "kind": "test",
         "isDefault": false
@@ -49,12 +77,10 @@
   ],
   "inputs": [
     {
-      "id": "addonName",
+      "id": "appFolder",
       "type": "pickString",
-      "description": "Name of addon (to add your addon to this list, please edit .vscode/tasks.json)",
-      "options": [
-        "example",
-      ]
+      "description": "App folder to run as a local dev copy (<folder>-dev, slug lowercased + _dev)",
+      "options": ["donetick", "donetick-beta"]
     }
   ]
 }
