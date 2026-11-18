@@ -10,6 +10,74 @@
 - Document self-hosted S3 services and explicit local filesystem opt-in for development, with a startup warning.
 - Fix `disable_signup` so enabling it blocks new account registration.
 
+## 0.1.87-beta.4:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* b4dd370c670cbdff519b5697748d827ffbfc964a: fix: accept numeric Thing trigger values in chore requests (@mvanhorn)
+* 26d1d34b133af9e06d6db497bea5f16abb4de147: Merge upstream develop (@mvanhorn)
+* 183e309f368c20e83d303de601da2e571f8820a9: Merge remote-tracking branch 'upstream/develop' into fix/889-numeric-thing-trigger-request (@mvanhorn)
+* 4178a4bd8f5bb0d1fac16cf9d8ab43cdb20920f6: fix(Calendar): returns VTODO instead of VEVENT ( <>)
+* 4af10ac4a21f0d34cbbca31d06ad90a53a65c3d7: fix(Calendar): reverts back to VEVENT and sets status to CONFIRMED ( <>)
+* 5bc9b74c2bd5e021bc8c83957b47bf7f5530687e: Merge remote-tracking branch 'upstream/develop' into fix/889-numeric-thing-trigger-request (@mvanhorn)
+* e7b91c9cdb3c5a5140a853e2d70ec905f732a5c3: feat: Implement plus-only event handling and downgrade logic for notification preferences (@meauxt)
+* a3ffb6c4100807ec6aea87ac5e72c3e293dc10bf: Merge pull request #984 from donetick/notification-improvments (@meauxt)
+* da3ee4ef630a79a7b5baf5a079becdac76e08509: Implement webhook client and validation logic (@meauxt)
+* aef01e021bd04011510354d8258db8d72724480a: feat: Enhance webhook client to handle stalled responses and improve throttling logic (@meauxt)
+* 37b478b822eeb9d8ca4ca5e797c244bcf85512bf: Add schedule bounds functionality and validation for chore recurrence (@meauxt)
+* d10b2e2edeae1469be2c3d4e6f4d22ddf545b4be: Merge pull request #986 from donetick/task-window (@meauxt)
+* 0c34a15b394786dcf490bc5c3b8532b7ed79d77b: Merge pull request #985 from donetick/webhook-enhacement (@meauxt)
+* ae43939dd919c04fd8ba088cdec1a3e38218e6e6: Merge pull request #967 from brock0124/develop (@meauxt)
+* e4f5f65a034bce330a58f3036c1b92021b494029: Merge pull request #912 from mvanhorn/fix/889-numeric-thing-trigger-request (@meauxt)
+
+## 0.1.87-beta.3:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 0cd0615f7e80ed65326ca6a7c9371ca450060bab: fix(storage): delete S3 objects at the key they were saved under (@pcbeingused333)
+* c9c0eacf503de5b4a1f81567119c5cd7e2faee40: fix(chore): do not panic completing a chore with a window but no due date (@pcbeingused333)
+* f6d4acebeb84e3c3792911ac7e509010324762f9: fix: update RevenueCat event structure and improve subscription handling (@meauxt)
+* 724b8bdf5f2321cf7c4384c9ea125341f819d995: fix: enhance error logging for user retrieval in RevenueCat webhook handlers (@meauxt)
+* 6f8e8266fb34f9f5ecb4c803a30cc43641ba993a: fix: implement GetSubscription method and enhance webhook subscription expiry handling (@meauxt)
+* 6f535d17c9f0332345f41b603e6825fdcebc563f: fix: implement TransferRevenueCatSubscriptions and enhance webhook event handling (@meauxt)
+* 897e79c036a0adc0f8d83aeb49d3cdacae52ff81: Merge pull request #909 from pcbeingused333/fix/s3-delete-key-separator (@meauxt)
+* f703de20465326775f7a8e6dd72d08ca2bcf375f: Merge pull request #973 from donetick/fix-renewal-issue (@meauxt)
+* ef8e55502ba6690115bcceff6213868aec4b7271: fix(storage): route public-object deletes to the public bucket (@meauxt)
+* b9bea92d686e76b32ba747d415342c913b14d0e0: fix(user): enhance profile photo management and cleanup for S3 URLs (@meauxt)
+* 2766e4930a654ad992904adfe70150a19282dd54: Merge pull request #974 from donetick/s3-fix-deletion-public-private (@meauxt)
+* 408015cdd58972516074640c04693ab03544c060: Merge pull request #942 from pcbeingused333/fix/completion-window-nil-due-date (@meauxt)
+* e518c9a567d50e9d85c3a65725ad6fb20d374311: correct spellign and fix linting (@meauxt)
+* 582841abed458ebb4d3579e0355fc1d154fddf28: Merge pull request #975 from donetick/lint-fix-and-spelling (@meauxt)
+
+## 0.1.87-beta.2:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* cc83bc0806e78b035d9e6401b662ccce4c621fcc: fix: Ending space causing docker run command to fail (@Duc-LLR)
+* 5f906d8033e5b2281abc4781a8ce858c74ba607e: fix: keep "always" chores active after approval or skip (Claude Opus 5.5 <noreply@anthropic.com>)
+* bb57aa30cff369cff872c2907144fb759b1d696a: Merge pull request #962 from hoge6b01/fix/always-chore-approve-skip (@meauxt)
+* f94246e0198d1a480214903d436dc256ebb44b44: Merge pull request #957 from Duc-LLR/fix/docker-run-cmd (@meauxt)
+
+## 0.1.87-beta.1:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 489161f33866d0434866d05ce5e2c6c672644b54: implement bulk creation of chores with validation and response handling (@meauxt)
+* 12d8159783b1cc937ac50e00d5c4b6273b51dc9a: feat: enhance security for asset and user image handling to prevent path traversal (@meauxt)
+* ebfb340d7bd4e2e009d6f2f9ad073868acaf6412: Merge pull request #953 from donetick/1101-fixes (@meauxt)
+
+## 0.1.86-beta.2:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* 07d18545dc3e2d12f7f3ec80055d3e74ef563223: feat: add timezone field to sign-up request and validate input (@meauxt)
+* e247327abc93a094f120a899f67c82a8a8bd175a: Merge pull request #947 from donetick/1031-fixes (@meauxt)
+
 ## 0.1.86-beta.1:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
