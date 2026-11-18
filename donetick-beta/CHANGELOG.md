@@ -2,6 +2,27 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.87-beta.4:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* b4dd370c670cbdff519b5697748d827ffbfc964a: fix: accept numeric Thing trigger values in chore requests (@mvanhorn)
+* 26d1d34b133af9e06d6db497bea5f16abb4de147: Merge upstream develop (@mvanhorn)
+* 183e309f368c20e83d303de601da2e571f8820a9: Merge remote-tracking branch 'upstream/develop' into fix/889-numeric-thing-trigger-request (@mvanhorn)
+* 4178a4bd8f5bb0d1fac16cf9d8ab43cdb20920f6: fix(Calendar): returns VTODO instead of VEVENT ( <>)
+* 4af10ac4a21f0d34cbbca31d06ad90a53a65c3d7: fix(Calendar): reverts back to VEVENT and sets status to CONFIRMED ( <>)
+* 5bc9b74c2bd5e021bc8c83957b47bf7f5530687e: Merge remote-tracking branch 'upstream/develop' into fix/889-numeric-thing-trigger-request (@mvanhorn)
+* e7b91c9cdb3c5a5140a853e2d70ec905f732a5c3: feat: Implement plus-only event handling and downgrade logic for notification preferences (@meauxt)
+* a3ffb6c4100807ec6aea87ac5e72c3e293dc10bf: Merge pull request #984 from donetick/notification-improvments (@meauxt)
+* da3ee4ef630a79a7b5baf5a079becdac76e08509: Implement webhook client and validation logic (@meauxt)
+* aef01e021bd04011510354d8258db8d72724480a: feat: Enhance webhook client to handle stalled responses and improve throttling logic (@meauxt)
+* 37b478b822eeb9d8ca4ca5e797c244bcf85512bf: Add schedule bounds functionality and validation for chore recurrence (@meauxt)
+* d10b2e2edeae1469be2c3d4e6f4d22ddf545b4be: Merge pull request #986 from donetick/task-window (@meauxt)
+* 0c34a15b394786dcf490bc5c3b8532b7ed79d77b: Merge pull request #985 from donetick/webhook-enhacement (@meauxt)
+* ae43939dd919c04fd8ba088cdec1a3e38218e6e6: Merge pull request #967 from brock0124/develop (@meauxt)
+* e4f5f65a034bce330a58f3036c1b92021b494029: Merge pull request #912 from mvanhorn/fix/889-numeric-thing-trigger-request (@meauxt)
+
 ## 0.1.87-beta.3:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
