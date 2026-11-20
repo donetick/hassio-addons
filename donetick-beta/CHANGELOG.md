@@ -2,6 +2,14 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.87-beta.5:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* b9af278613e6662b5adf86ffe10a188ba8db67c8: Allow API tokens for reward endpoints (@torbenvanassche)
+* 83eb59cd865704a3c635aa009b686a000930224f: Merge pull request #992 from torbenvanassche/rewards-api-token-support (@meauxt)
+
 ## Unreleased
 
 - Default the attachment size limit to 10 MiB (10485760 bytes).
