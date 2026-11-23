@@ -2,6 +2,35 @@
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
 
+## 0.1.87-beta.6:
+> [!WARNING]
+> This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
+
+## Changelog
+* a5485861cb491f0dc87f771a048d7926c62c19ba: fix(chore): clear the due date when an edit sends nextDueDate: null (@pcbeingused333)
+* b5650c714f9bc80365b4f975e7344043e76ae4c3: Merge branch 'develop' into fix/clear-due-date (@pcbeingused333)
+* 13a40f3409d92a287a39216824723c32e57ac022: fix(scheduler): compare due date month in the chore timezone for day_of_the_month (@raven-clown)
+* a599d5c43e144ffed63f8f46b488e1da96ce8a79: chore: merge develop into clear-due-date fix (@pcbeingused333)
+* 692800a78065605f388778e3cb934216cce5f93b: feat(mcp): add a built-in MCP server at /mcp (@Fianko-codes)
+* de8d4638c8e9225867ac24355e5cb83f35454386: feat(mcp): build the tools on /api/v1 and add labels, projects and filters (@Fianko-codes)
+* 4bbb860efed3002b053f7a23e8bea75917179abc: chore: merge develop into clear-due-date fix (@pcbeingused333)
+* 687e38d4e51ed013810175988a783f126be88d9a: Emit webhook events for approved reward redemptions (@torbenvanassche)
+* cea23b6fc788b566f6c0989faf135856b58715f1: Add opt-in automatic reward approval (@torbenvanassche)
+* 73e8fdf64dcb5a262cec3d8d4996f2fef784c8bb: Allow reward redemption for selected members (@torbenvanassche)
+* e4c969268011ff7f71bc58400d2890753d35cc70: Update handler.go (@torbenvanassche)
+* 31a746c495e9da32c6ebf333908447b2c8fa67e9: filter subscriptions by product ownership (@meauxt)
+* 7df071fb742c76d11fcbd1d1d6033af2e6ce2727: Merge pull request #1001 from donetick/seperate-webhook-events (@meauxt)
+* 74acc5f5b3ea11b0a170dbe1c85490ec20dad5d8: Merge pull request #993 from torbenvanassche/reward-approved-webhook (@meauxt)
+* b0f08ff4631b2c9ce984ca226dfd4bc4c82677c0: Merge pull request #994 from torbenvanassche/reward-auto-approval (@meauxt)
+* ee685536282c986709206ed251ded572c1f96dae: Merge branch 'develop' into feat/mcp-server (@meauxt)
+* c18bd514e6727e8c922f86805bf3089e1f183fe1: Merge pull request #983 from Fianko-codes/feat/mcp-server (@meauxt)
+* c790444511b64503e550ed9bca870b4045b44f37: Implement notification transport validation and enhance chore recurrence tests (@meauxt)
+* faa01e95ac60d91e41c56c0e3db012a6d67b34fc: Merge pull request #1002 from donetick/followup-mcp (@meauxt)
+* 47f1bcd752c8f06f9a70c33f86294fc2ac1cb498: Refactor GetChores to always include subtasks and simplify query parameters (@meauxt)
+* 2c124f1acdde8a6b965b951729cbb1255b905475: Merge pull request #1003 from donetick/fixes-1122 (@meauxt)
+* 437767eb99e2158a20fe30b1eb6452e107b3e059: Merge pull request #949 from raven-clown/fix/day-of-month-utc-month-mismatch (@meauxt)
+* 78c43983b9a549e79c19fd88221cb13d6bc95c81: Merge pull request #907 from pcbeingused333/fix/clear-due-date (@meauxt)
+
 ## 0.1.87-beta.5:
 > [!WARNING]
 > This release is intended for testing purposes only. Please do not use it with production data, as frequent updates and architectural changes may occur between pre-release versions.
