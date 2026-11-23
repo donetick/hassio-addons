@@ -1,5 +1,129 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.1.89:
+# Donetick v0.1.89 
+
+Big one again! This release is headlined by the built-in MCP server, plus the app got bulk import, board drag-and-drop, themes, and a lot more. 
+
+- **Built-in MCP server**: Donetick now serves a Model Context Protocol endpoint at `/mcp`, so AI assistants can work with chores and things using an API token. Each tool wraps one eAPI route, so permissions, Plus-only routes, rate limits, webhooks, and notifications behave exactly as they do for any other API client. It's off by default — enable it with `mcp.enabled` / `DT_MCP_ENABLED`. There's also an MCP settings screen in the app. (@Fianko-codes)
+
+- **Rewards keep growing**: opt-in automatic approval, redemption for selected members, API tokens for the reward endpoints, and webhook events for approved redemptions. (@torbenvanassche) There's a matching reward auto-approval setting in the app.
+
+- **Webhooks**: separate webhook events, a client that handles stalled responses and throttling, and subscriptions filtered by product ownership.
+
+- **Scheduler fixes**: day-of-the-month now compares in the chore timezone (@raven-clown), and "always" chores stay active after approval or skip (@hoge6b01).
+
+- **Due dates**: clearing a due date works now (editing with `nextDueDate: null` actually clears it), and completing a chore with a window but no due date no longer panics. (@pcbeingused333)
+
+- **Calendar**: the VTODO/VEVENT back-and-forth is settled — back to VEVENT with status CONFIRMED. (@brock0124)
+
+- **Things**: numeric trigger values are now accepted in chore requests. (@mvanhorn)
+
+- **Storage / S3**: deletes go to the key objects were saved under, public-object deletes route to the public bucket, and profile photo management/cleanup is better.
+
+on another note we have also some nice **Home Assistant integration** updates: a reward catalog with an approval webhook, a create-task dashboard card, assignee display names, linked task images clickable in the card (inline base64 stripped from descriptions), optimistic task completion with reliable refreshes, docs reorganized into focused guides, calendar projection and sensor fixes (@KuljeetSinghXDA), and a completion-action user selector (@csandbrink).
+
+## Special thanks:
+
+- @Fianko-codes for the MCP server
+- @torbenvanassche for the reward upgrades and the HA work
+- @pcbeingused333 for the due-date fixes
+- @raven-clown for the day-of-the-month timezone fix
+- @mvanhorn for numeric Thing triggers
+- @brock0124 for the calendar fixes
+- @hoge6b01 for the always-chore fix
+- @KuljeetSinghXDA for the HA calendar and sensor fixes
+- @csandbrink for the HA completion selector
+- @Duc-LLR for the docker run fix
+- @Andrei Pavel for the Romanian translation
+- @Julian Steenbakker for the Dutch translation
+- @alexcastgonz for non-ASCII signup names
+- @Zachary Merritt for the iOS nav drawer fix
+- @Priyanshi for weekday sorting
+- @qwist1233-cpu for the deep-link fix
+- everyone who filed issues, tested betas, and helped shape this release. Thank you!
+
+## What's Changed
+
+Backend (`donetick/donetick`, v0.1.84 → v0.1.89):
+
+- Fix permission on chore details in https://github.com/donetick/donetick/pull/944
+- 1031 fixes: timezone field at sign-up in https://github.com/donetick/donetick/pull/947
+- 1101 fixes: bulk chore creation, path traversal protection in https://github.com/donetick/donetick/pull/953
+- Fix docker run command (trailing space) by @Duc-LLR in https://github.com/donetick/donetick/pull/957
+- Keep "always" chores active after approval or skip by @hoge6b01 in https://github.com/donetick/donetick/pull/962
+- Calendar VTODO/VEVENT fixes by @brock0124 in https://github.com/donetick/donetick/pull/967
+- Fix renewal issue (RevenueCat) in https://github.com/donetick/donetick/pull/973
+- S3 deletion fixes in https://github.com/donetick/donetick/pull/974 and https://github.com/donetick/donetick/pull/909
+- Lint + spelling fixes in https://github.com/donetick/donetick/pull/975
+- Built-in MCP server at /mcp by @Fianko-codes in https://github.com/donetick/donetick/pull/983
+- Notification improvements in https://github.com/donetick/donetick/pull/984
+- Webhook enhancement in https://github.com/donetick/donetick/pull/985
+- Schedule bounds / task windows in https://github.com/donetick/donetick/pull/986
+- Rewards: API token support by @torbenvanassche in https://github.com/donetick/donetick/pull/992
+- Rewards: approved-redemption webhook by @torbenvanassche in https://github.com/donetick/donetick/pull/993
+- Rewards: opt-in auto-approval by @torbenvanassche in https://github.com/donetick/donetick/pull/994
+- Separate webhook events in https://github.com/donetick/donetick/pull/1001
+- MCP follow-ups in https://github.com/donetick/donetick/pull/1002
+- Fixes 1122: GetChores always includes subtasks in https://github.com/donetick/donetick/pull/1003
+- Clear due date when edit sends nextDueDate: null by @pcbeingused333 in https://github.com/donetick/donetick/pull/907
+- Numeric Thing trigger values by @mvanhorn in https://github.com/donetick/donetick/pull/912
+- Completion window with nil due date by @pcbeingused333 in https://github.com/donetick/donetick/pull/942
+- Day-of-the-month UTC month mismatch by @raven-clown in https://github.com/donetick/donetick/pull/949
+
+App (`donetick/frontend`, v1.2.62 → v1.2.76):
+
+- Share extension in https://github.com/donetick/frontend/pull/330
+- Project widget in https://github.com/donetick/frontend/pull/332
+- ChoreActionMenu: priority + offline sync in https://github.com/donetick/frontend/pull/331
+- Fix fields bleeding on small screens (iPhone 13) in https://github.com/donetick/frontend/pull/333
+- Complete Dutch translation by @Julian Steenbakker in https://github.com/donetick/frontend/pull/334
+- Password reset in account deletion flow in https://github.com/donetick/frontend/pull/335
+- Non-ASCII letters in signup display name by @alexcastgonz in https://github.com/donetick/frontend/pull/329
+- Push notification registration + device cleanup in https://github.com/donetick/frontend/pull/337
+- Notification preferences UI in https://github.com/donetick/frontend/pull/338
+- Project board and list view in https://github.com/donetick/frontend/pull/343
+- Weekday sorting in calendar order by @Priyanshi in https://github.com/donetick/frontend/pull/344
+- Settings and themes in https://github.com/donetick/frontend/pull/345
+- Startup screen in https://github.com/donetick/frontend/pull/346
+- Board view improvements in https://github.com/donetick/frontend/pull/347
+- Label/filter privacy in https://github.com/donetick/frontend/pull/351 and https://github.com/donetick/frontend/pull/352
+- Notification approval assignment in https://github.com/donetick/frontend/pull/356
+- Chore permissions, error handling, swipe actions in https://github.com/donetick/frontend/pull/357
+- Clipboard copying over HTTP by @torbenvanassche in https://github.com/donetick/frontend/pull/362
+- 1030 fixes in https://github.com/donetick/frontend/pull/367
+- German permission + swipe texts by @hoge6b01 in https://github.com/donetick/frontend/pull/387
+- Bulk task import + template personalization in https://github.com/donetick/frontend/pull/389
+- Fix mobile nav drawer vanishing on iOS by @Zachary Merritt in https://github.com/donetick/frontend/pull/393
+- Romanian localization by @Andrei Pavel in https://github.com/donetick/frontend/pull/395
+- Fix multiple switch when app returns from sleep in https://github.com/donetick/frontend/pull/399
+- Project board: scrollable sections + drag-and-drop in https://github.com/donetick/frontend/pull/400
+- Deep-link fix: stop forwarding caller-controlled query params by @qwist1233-cpu in https://github.com/donetick/frontend/pull/404
+- Reward auto-approval setting by @torbenvanassche in https://github.com/donetick/frontend/pull/405
+- Customize Quick Add fields by @torbenvanassche in https://github.com/donetick/frontend/pull/407
+- MCP settings in https://github.com/donetick/frontend/pull/408
+- Server status in https://github.com/donetick/frontend/pull/409
+- Snackbar improvements in https://github.com/donetick/frontend/pull/411
+- Deprecate ChoreDetails, rely on Chore endpoint + cached state in https://github.com/donetick/frontend/pull/412
+- Resizable task pane in https://github.com/donetick/frontend/pull/413
+- Hidden labels + system label indicators in https://github.com/donetick/frontend/pull/414 and https://github.com/donetick/frontend/pull/415
+
+Home Assistant (`donetick/donetick-hass-integration`, main since v0.1.84):
+
+- Completion-action user selector by @csandbrink in https://github.com/donetick/donetick-hass-integration/pull/82
+- Skip-task service fix by @KuljeetSinghXDA in https://github.com/donetick/donetick-hass-integration/pull/97
+- Remove deleted chore sensors by @KuljeetSinghXDA in https://github.com/donetick/donetick-hass-integration/pull/98
+- Monthly/yearly projection fixes by @KuljeetSinghXDA in https://github.com/donetick/donetick-hass-integration/pull/99
+- Calendar projection horizon by @KuljeetSinghXDA in https://github.com/donetick/donetick-hass-integration/pull/100
+- Activity calendar long range by @KuljeetSinghXDA in https://github.com/donetick/donetick-hass-integration/pull/101
+- Thing entity unique IDs scoped to config entry by @KuljeetSinghXDA in https://github.com/donetick/donetick-hass-integration/pull/102
+- Optimistic task completion + reliable refreshes by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/104
+- Reorganize integration docs by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/105
+- Reward catalog + approval webhook by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/106
+- Create-task dashboard card by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/108
+- Assignee display names by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/109
+- Fix inline images in the card by @torbenvanassche in https://github.com/donetick/donetick-hass-integration/pull/110
+
 ## 0.1.86:
 ## Changelog
 * 489161f33866d0434866d05ce5e2c6c672644b54: implement bulk creation of chores with validation and response handling (@meauxt)
